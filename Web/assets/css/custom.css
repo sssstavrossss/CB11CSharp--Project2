@@ -1,0 +1,164 @@
+﻿body {
+    font-family: 'Raleway', sans-serif !important;
+    min-height: 100%;
+    background: linear-gradient(0deg, rgb(255, 255, 255, .15), rgba(255, 0, 150, 0.10)), url(/Web/img/custom/blurred-web-backgrounds.jpg);
+    background-size: cover;
+}
+
+.main-container {
+    min-height: 100vh;
+    background-color: rgba(255, 255, 255, .60);
+    box-shadow: 0px 0px 25px 8px rgba(112,112,112,0.9);
+    position: relative;
+}
+
+h2 {
+    text-shadow: 1px 1px rgba(17, 17, 17, 0.87);
+    letter-spacing: 1.7px;
+}
+
+.menu-btn {
+    top: 50px;
+}
+
+/* The side button functionality*/
+.side-btn {
+    position: absolute;
+    height: 48px;
+    width: 48px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, .96);
+    box-shadow: 0px 0px 15px 5px rgba(112,112,112,0.85);
+    transform: translateX(-50%);
+    transition: 0.33s;
+    cursor: pointer;
+}
+
+    .side-btn:hover {
+        box-shadow: 0px 0px 7px 3px rgba(112,112,112,0.92);
+        transform: scale(1.15) translateX(-45%);
+    }
+
+
+/* The side navigation menu */
+.sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: #739ff6; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+/* The navigation menu links */
+.sidenav a {
+    padding: 8px 8px 8px 20px;
+    text-decoration: none;
+    font-size: 17px;
+    color: white;
+    display: block;
+    transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+    color: rgb(235, 255, 142);
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+    transition: margin-left .5s;
+    padding: 20px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+
+    .sidenav a {
+        font-size: 18px;
+    }
+}
+
+/* TABLES */
+
+thead {
+    background-color: rgba(255, 255, 255, .55);
+}
+
+tr:nth-child(odd) {
+    background-color: rgba(255, 255, 255, .33);
+}
+
+tr {
+    transition: 0.3s;
+}
+
+tr:hover {
+    background-color: rgba(255, 255, 255, .88);
+}
+
+tbody > tr > td > div, thead > tr > th > div {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    box-shadow: 0px 0px 5px 2px rgba(112,112,112,0.85);
+    transition: 0.3s;
+}
+
+    tbody > tr > td > div:hover, thead > tr > th > div:hover {
+        box-shadow: 0px 0px 4px 1px rgba(99, 99, 99, 0.98);
+        transform: scale(1.25);
+    }
+
+thead > tr > th:last-child > div {
+    background-color: rgba(168, 168, 168, 0.4);
+}
+
+    thead > tr > th:last-child > div:hover {
+        background-color: rgba(160, 160, 160, 0.75);
+        cursor: pointer;
+    }
+
+tbody > tr > td:last-child > div:first-of-type {
+    background-color: rgba(234, 255, 47, 0.4);
+}
+
+    tbody > tr > td:last-child > div:first-of-type:hover {
+        background-color: rgba(229, 251, 38, 0.90);
+        cursor: pointer;
+    }
+
+tbody > tr > td:last-child > div:last-of-type {
+    background-color: rgba(255, 62, 62, 0.4);
+}
+
+    tbody > tr > td:last-child > div:last-of-type:hover {
+        background-color: rgba(255, 48, 48, 0.66);
+        cursor: pointer;
+    }
+
+/* others */
+
+.padding-zero {
+    padding: 0 !important;
+}
+
+.margin-auto {
+    margin: 0 auto;
+}
