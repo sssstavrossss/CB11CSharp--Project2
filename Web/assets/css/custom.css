@@ -1,14 +1,14 @@
 ﻿body {
     font-family: 'Raleway', sans-serif !important;
     min-height: 100%;
-    background: linear-gradient(to right, rgba(255, 255, 255, .15), rgba(255, 255, 255, .44)), url(/Web/img/custom/blurred-web-backgrounds.jpg);
+    background: linear-gradient(to right, rgba(189, 196, 255, 0.66), rgba(187, 194, 255, 0.66)), url(/Web/img/custom/bigstock-Data-Technology.jpg);
     background-size: cover;
 }
 
 .main-container {
     min-height: 100vh;
     background-color: rgba(255, 255, 255, .60);
-    box-shadow: 0px 0px 25px 8px rgba(112,112,112,0.9);
+    box-shadow: 0px 0px 25px 8px rgba(39, 39, 39, 0.66);
     position: relative;
 }
 
@@ -28,14 +28,14 @@ h2 {
     width: 48px;
     border-radius: 50%;
     background-color: rgba(255, 255, 255, .96);
-    box-shadow: 0px 0px 15px 5px rgba(112,112,112,0.85);
+    box-shadow: 0px 0px 15px 5px rgba(58, 58, 58, 0.66);
     transform: translateX(-50%);
     transition: 0.33s;
     cursor: pointer;
 }
 
     .side-btn:hover {
-        box-shadow: 0px 0px 7px 3px rgba(112,112,112,0.92);
+        box-shadow: 0px 0px 7px 3px rgba(31, 31, 31, 0.77);
         transform: scale(1.15) translateX(-45%);
     }
 
@@ -117,12 +117,12 @@ tbody > tr > td > div, thead > tr > th > div {
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    box-shadow: 0px 0px 6px 3px rgba(112,112,112,0.92);
+    box-shadow: 0px 0px 6px 3px rgba(112,112,112,0.77);
     transition: 0.3s;
 }
 
     tbody > tr > td > div:hover, thead > tr > th > div:hover {
-        box-shadow: 0px 0px 3px 1px rgba(72, 72, 72, 0.95);
+        box-shadow: 0px 0px 3px 1px rgba(72, 72, 72, 0.90);
         transform: scale(1.26);
     }
 
