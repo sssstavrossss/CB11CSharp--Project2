@@ -127,7 +127,7 @@ tbody > tr > td > div, thead > tr > th > div {
     }
 
 thead > tr > th:last-child > div {
-    background-color: rgba(168, 168, 168, 0.50);
+    background-color: rgba(168, 168, 168, 0.60);
 }
 
     thead > tr > th:last-child > div:hover {
@@ -136,7 +136,7 @@ thead > tr > th:last-child > div {
     }
 
 tbody > tr > td:last-child > div:first-of-type {
-    background-color: rgba(234, 255, 47, 0.50);
+    background-color: rgba(234, 255, 47, 0.60);
 }
 
     tbody > tr > td:last-child > div:first-of-type:hover {
@@ -145,7 +145,7 @@ tbody > tr > td:last-child > div:first-of-type {
     }
 
 tbody > tr > td:last-child > div:last-of-type {
-    background-color: rgba(255, 62, 62, 0.50);
+    background-color: rgba(255, 62, 62, 0.60);
 }
 
     tbody > tr > td:last-child > div:last-of-type:hover {
