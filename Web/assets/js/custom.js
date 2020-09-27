@@ -102,9 +102,9 @@ function Data () {
     //console.log(Entities['Students']);
     //Entities['AllSt'].forEach(func);
 
-    var div = document.getElementById('zzz');
+    var div = document.getElementById('table_div');
     var table = document.createElement('table');
-    table.classList.add('table');
+    table.setAttribute('id', 'table');
 
 
     var thead = document.createElement('thead');
@@ -179,6 +179,42 @@ function Data () {
     tr2.appendChild(td6);
     tr2.appendChild(td7);
     tbody.appendChild(tr2);
+    table.appendChild(tbody);
+
+    var tr3 = document.createElement('tr');
+    var atd1 = document.createElement('td');
+    var atd2 = document.createElement('td');
+    var atd3 = document.createElement('td');
+    var atd3b = document.createElement('td');
+    var atd4 = document.createElement('td');
+    var atd5 = document.createElement('td');
+    var atd6 = document.createElement('td');
+    var atd7 = document.createElement('td');
+    var atd1text = document.createTextNode(Data.Students.Entities[1].ID);
+    var atd2text = document.createTextNode(Data.Students.Entities[1].firstName);
+    var atd3text = document.createTextNode(Data.Students.Entities[1].lastName);
+    var atd3btext = document.createTextNode(Data.Students.Entities[1].dateOfBirth);
+    var atd4text = document.createTextNode(Data.Students.Entities[1].tuitionFees);
+    var atd5text = document.createTextNode('Courses');
+    var atd6text = document.createTextNode('Assignments');
+    var atd7text = document.createTextNode(' ');
+    atd1.appendChild(atd1text);
+    atd2.appendChild(atd2text);
+    atd3.appendChild(atd3text);
+    atd3b.appendChild(atd3btext);
+    atd4.appendChild(atd4text);
+    atd5.appendChild(atd5text);
+    atd6.appendChild(atd6text);
+    atd7.appendChild(atd7text);
+    tr3.appendChild(atd1);
+    tr3.appendChild(atd2);
+    tr3.appendChild(atd3);
+    tr3.appendChild(atd3b);
+    tr3.appendChild(atd4);
+    tr3.appendChild(atd5);
+    tr3.appendChild(atd6);
+    tr3.appendChild(atd7);
+    tbody.appendChild(tr3);
     table.appendChild(tbody);
 
 

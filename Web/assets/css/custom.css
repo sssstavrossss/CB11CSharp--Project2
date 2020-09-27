@@ -1,14 +1,14 @@
 ﻿body {
     font-family: 'Raleway', sans-serif !important;
     min-height: 100%;
-    background: linear-gradient(to right, rgba(189, 196, 255, 0.66), rgba(187, 194, 255, 0.66)), url(/Web/img/custom/bigstock-Data-Technology.jpg);
+    background: linear-gradient(to right, rgba(189, 196, 255, 0.70), rgba(187, 194, 255, 0.70)), url(/Web/img/custom/bigstock-Data-Technology.jpg);
     background-size: cover;
 }
 
 .main-container {
     min-height: 100vh;
-    background-color: rgba(255, 255, 255, .60);
-    box-shadow: 0px 0px 25px 8px rgba(39, 39, 39, 0.66);
+    background-color: rgba(244, 244, 244, 0.90);
+    box-shadow: 0px 0px 25px 8px rgba(39, 39, 39, 0.70);
     position: relative;
 }
 
@@ -97,61 +97,89 @@ h2 {
 
 /* TABLES */
 
+.dataTables_wrapper {
+    padding: 23px 0px !important;
+    color: black !important;
+}
+
+.dataTables_length, .dataTables_info {
+    margin-left: 33px;
+    color: black !important;
+}
+
+.dataTables_filter, .dataTables_paginate {
+    margin-right: 33px;
+    color: black !important;
+}
+
+table, thead, tbody {
+    border: none !important;
+    padding: 15px 0px !important;
+}
+
 thead {
-    background-color: rgba(255, 255, 255, .55);
+    background-color: rgba(255, 255, 255, .99) !important;
 }
 
 tr:nth-child(odd) {
-    background-color: rgba(255, 255, 255, .33);
+    background-color: rgba(237, 237, 237, 0.66) !important;
 }
 
 tr {
-    transition: 0.3s;
+    transition: 0.3s !important;
 }
 
-tr:hover {
-    background-color: rgba(255, 255, 255, .88);
+tbody > tr:hover {
+    background-color: rgba(241, 241, 215, 0.77) !important;
 }
 
 tbody > tr > td > div, thead > tr > th > div {
-    width: 30px;
+    width: 30px !important;
     height: 30px;
-    border-radius: 50%;
-    box-shadow: 0px 0px 6px 3px rgba(112,112,112,0.77);
-    transition: 0.3s;
+    border-radius: 50% !important;
+    box-shadow: 0px 0px 6px 3px rgba(112,112,112,0.82) !important;
+    transition: 0.3s !important;
 }
 
     tbody > tr > td > div:hover, thead > tr > th > div:hover {
-        box-shadow: 0px 0px 3px 1px rgba(72, 72, 72, 0.90);
-        transform: scale(1.26);
+        box-shadow: 0px 0px 3px 1px rgba(62, 62, 62, 0.92) !important;
+        transform: scale(1.26) !important;
     }
 
 thead > tr > th:last-child > div {
-    background-color: rgba(168, 168, 168, 0.60);
+    background-color: rgba(168, 168, 168, 0.60) !important;
 }
 
     thead > tr > th:last-child > div:hover {
-        background-color: rgba(160, 160, 160, 0.77);
-        cursor: pointer;
+        background-color: rgba(160, 160, 160, 0.77) !important;
+        cursor: pointer !important;
     }
 
 tbody > tr > td:last-child > div:first-of-type {
-    background-color: rgba(234, 255, 47, 0.60);
+    background-color: rgba(234, 255, 47, 0.60) !important;
 }
 
-    tbody > tr > td:last-child > div:first-of-type:hover {
-        background-color: rgba(229, 251, 38, 0.90);
-        cursor: pointer;
-    }
+tbody > tr > td:last-child > div:first-of-type:hover {
+    background-color: rgba(229, 251, 38, 0.90) !important;
+    cursor: pointer;
+}
 
 tbody > tr > td:last-child > div:last-of-type {
-    background-color: rgba(255, 62, 62, 0.60);
+    background-color: rgba(255, 62, 62, 0.60) !important;
 }
 
-    tbody > tr > td:last-child > div:last-of-type:hover {
-        background-color: rgba(255, 48, 48, 0.77);
-        cursor: pointer;
-    }
+tbody > tr > td:last-child > div:last-of-type:hover {
+    background-color: rgba(255, 48, 48, 0.77) !important;
+    cursor: pointer;
+}
+
+.dataTables_wrapper .dataTables_filter input[type=search] {
+    background-color: white !important;
+}
+
+.dataTables_wrapper .dataTables_length select {
+    background-color: white !important;
+}
 
 /* others */
 

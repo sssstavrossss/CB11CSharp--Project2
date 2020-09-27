@@ -19,6 +19,9 @@
           rel="stylesheet">
     <!--FaFa Font Icons-->
     <script src="https://kit.fontawesome.com/abbff86c53.js" crossorigin="anonymous"></script>
+    <!--DataTables-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
 </head>
 <body>
     <div id="mySidenav" class="sidenav">
@@ -51,7 +54,7 @@
                 </div>
                 <div class="row mt-5">
                     <div class="col-12 padding-zero">
-                        <div class="table-responsive" id="zzz">
+                        <div class="table-responsive" id="table_div">
                             <!--<table class="table">
     <thead>
         <tr>
@@ -139,6 +142,12 @@
     </div>
 
     <script src="/Web/assets/js/custom.js"></script>
+    <!--DataTables-->
+    <script>
+        $(document).ready(function () {
+            $('#table').DataTable();
+        });
+    </script>
 
 </body>
 </html>
