@@ -124,7 +124,6 @@ function Data () {
     var th4text = document.createTextNode('Tuition Fees');
     var th5text = document.createTextNode('Courses');
     var th6text = document.createTextNode('Assignments');
-    var th7text = document.createTextNode(' ');
     th1.appendChild(th1text);
     th2.appendChild(th2text);
     th3.appendChild(th3text);
@@ -132,7 +131,6 @@ function Data () {
     th4.appendChild(th4text);
     th5.appendChild(th5text);
     th6.appendChild(th6text);
-    th7.appendChild(th7text);
     tr.appendChild(th1);
     tr.appendChild(th2);
     tr.appendChild(th3);
@@ -143,6 +141,10 @@ function Data () {
     tr.appendChild(th7);
     thead.appendChild(tr);
     table.appendChild(thead);
+    th7.innerHTML = `<div title="Add" class="margin-auto d-flex justify-content-center">
+                    <i class="fa fa-plus fa-lg align-self-center" aria-hidden="true"></i>
+                </div>`;
+    th7.classList.add('margin-auto', 'd-flex', 'justify-content-center');
 
     var tbody = document.createElement('tbody');
     var tr2 = document.createElement('tr');
@@ -161,7 +163,6 @@ function Data () {
     var td4text = document.createTextNode(Data.Students.Entities[0].tuitionFees);
     var td5text = document.createTextNode('Courses');
     var td6text = document.createTextNode('Assignments');
-    var td7text = document.createTextNode(' ');
     td1.appendChild(td1text);
     td2.appendChild(td2text);
     td3.appendChild(td3text);
@@ -169,7 +170,6 @@ function Data () {
     td4.appendChild(td4text);
     td5.appendChild(td5text);
     td6.appendChild(td6text);
-    td7.appendChild(td7text);
     tr2.appendChild(td1);
     tr2.appendChild(td2);
     tr2.appendChild(td3);
@@ -180,6 +180,13 @@ function Data () {
     tr2.appendChild(td7);
     tbody.appendChild(tr2);
     table.appendChild(tbody);
+    td7.innerHTML = `<div class="margin-auto d-flex justify-content-center" title="Edit">
+                    <i class="fa fa-pencil fa-lg align-self-center" aria-hidden="true"></i>
+                </div>
+                <div class="margin-auto d-flex justify-content-center" title="Delete">
+                    <i class="fa fa-trash fa-lg align-self-center" aria-hidden="true"></i>
+                </div>`;
+    td7.classList.add('margin-auto', 'd-flex', 'justify-content-center');
 
     var tr3 = document.createElement('tr');
     var atd1 = document.createElement('td');
@@ -197,7 +204,6 @@ function Data () {
     var atd4text = document.createTextNode(Data.Students.Entities[1].tuitionFees);
     var atd5text = document.createTextNode('Courses');
     var atd6text = document.createTextNode('Assignments');
-    var atd7text = document.createTextNode(' ');
     atd1.appendChild(atd1text);
     atd2.appendChild(atd2text);
     atd3.appendChild(atd3text);
@@ -205,7 +211,6 @@ function Data () {
     atd4.appendChild(atd4text);
     atd5.appendChild(atd5text);
     atd6.appendChild(atd6text);
-    atd7.appendChild(atd7text);
     tr3.appendChild(atd1);
     tr3.appendChild(atd2);
     tr3.appendChild(atd3);
@@ -216,6 +221,13 @@ function Data () {
     tr3.appendChild(atd7);
     tbody.appendChild(tr3);
     table.appendChild(tbody);
+    atd7.innerHTML = `<div class="margin-auto d-flex justify-content-center" title="Edit">
+                    <i class="fa fa-pencil fa-lg align-self-center" aria-hidden="true"></i>
+                </div>
+                <div class="margin-auto d-flex justify-content-center" title="Delete">
+                    <i class="fa fa-trash fa-lg align-self-center" aria-hidden="true"></i>
+                </div>`;
+    atd7.classList.add('margin-auto', 'd-flex', 'justify-content-center');
 
 
 
