@@ -121,7 +121,7 @@ function Data () {
 
     var HeaderClasses1 = 'margin-auto';
     var HeaderClasses2 = 'd-flex';
-    var HeaderClasses2 = 'justify-content-center';
+    var HeaderClasses3 = 'justify-content-center';
 
     (function () {
         var thead = document.createElement('thead');
@@ -140,27 +140,30 @@ function Data () {
         thLast.classList.add(HeaderClasses1, HeaderClasses2, HeaderClasses3);
     })();
 
-    (function () {
+    (function (Data) {
         var tbody = document.createElement('tbody');
+        var EntitiesKeys = Object.keys(Data.Students.Entities[0]);
         for (var item of Data.Students.Entities) {
-            (function (item) {
-                
+            (function (item, key) {
                 var tr = document.createElement('tr');
-                for (var item of Data.Students.Keys) {
+                for (var item2 of key) {
                     var td = document.createElement('td');
-                    var tdtext = document.createTextNode(item);
+                    var tdtext = document.createTextNode(item[item2]);
                     td.appendChild(tdtext);
                     tr.appendChild(td);
                 }
                 var tdLast = document.createElement('td');
-            })(item);
-            tr.appendChild(tdLast);
-            tbody.appendChild(tr);
-            table.appendChild(tbody);
-            tdLast.innerHTML = StudentBodyHtml;
-            tdLast.classList.add(HeaderClasses1, HeaderClasses2, HeaderClasses3);
+                tr.appendChild(tdLast);
+                tbody.appendChild(tr);
+                table.appendChild(tbody);
+                tdLast.innerHTML = StudentBodyHtml;
+                tdLast.classList.add(HeaderClasses1, HeaderClasses2, HeaderClasses3);
+            })(item, EntitiesKeys);
         }
-    })();
+        table.appendChild(tbody);
+    })(Data);
+
+    div.appendChild(table);
 
 })(Data());
 

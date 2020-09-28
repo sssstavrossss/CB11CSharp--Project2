@@ -1,11 +1,10 @@
 ﻿body {
     font-family: 'Raleway', sans-serif !important;
-    min-height: 100%;
     color: white;
+    height: 100%;
 }
 
 .main-container {
-    min-height: 100vh;
     position: relative;
 }
 
@@ -19,7 +18,7 @@ h2 {
 }
 
 i {
-    color: darkred;
+    color: rgb(132, 44, 44);
 }
 
 /* The side button functionality*/
@@ -146,7 +145,6 @@ tbody > tr:hover {
 
 tbody > tr > td > div, thead > tr > th > div {
     padding-top: 5px;
-    text-shadow: 1px 1px 5px rgba(158, 103, 103, 0.33);
     transition: .3s;
 }
 
