@@ -184,7 +184,7 @@ function Data () {
                     <i class="fa fa-pencil fa-lg align-self-center" aria-hidden="true"></i>
                 </div>
                 <div class="margin-auto d-flex justify-content-center" title="Delete">
-                    <i class="fa fa-trash fa-lg align-self-center" aria-hidden="true"></i>
+                    <i class="fa fa-trash fa-lg align-self-center ml-1" aria-hidden="true"></i>
                 </div>`;
     td7.classList.add('margin-auto', 'd-flex', 'justify-content-center');
 
@@ -225,7 +225,7 @@ function Data () {
                     <i class="fa fa-pencil fa-lg align-self-center" aria-hidden="true"></i>
                 </div>
                 <div class="margin-auto d-flex justify-content-center" title="Delete">
-                    <i class="fa fa-trash fa-lg align-self-center" aria-hidden="true"></i>
+                    <i class="fa fa-trash fa-lg align-self-center ml-1" aria-hidden="true"></i>
                 </div>`;
     atd7.classList.add('margin-auto', 'd-flex', 'justify-content-center');
 

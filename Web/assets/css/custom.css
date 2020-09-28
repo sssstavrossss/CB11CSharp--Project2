@@ -46,10 +46,10 @@ i {
     height: 100%; /* 100% Full-height */
     width: 0; /* 0 width - change this with JavaScript */
     position: fixed; /* Stay in place */
-    z-index: 1; /* Stay on top */
+    z-index: 99; /* Stay on top */
     top: 0; /* Stay at the top */
     left: 0;
-    background-color: #739ff6; /* Black*/
+    background-color: rgba(35, 35, 35, 0.95); /* Black*/
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 60px; /* Place content 60px from the top */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
@@ -60,7 +60,7 @@ i {
     padding: 8px 8px 8px 20px;
     text-decoration: none;
     font-size: 17px;
-    color: white;
+    color: darkred;
     display: block;
     transition: 0.3s;
 }
@@ -147,18 +147,29 @@ tbody > tr:hover {
 tbody > tr > td > div, thead > tr > th > div {
     padding-top: 5px;
     text-shadow: 1px 1px 5px rgba(158, 103, 103, 0.33);
-    margin-left: 25px;
+    transition: .3s;
+}
+
+tbody > tr > td > div:hover, thead > tr > th > div:hover {
+    transform: scale(1.22);
 }
 
 .dataTables_wrapper .dataTables_filter input[type=search] {
-    background-color: white !important;
+    background-color: rgba(41, 41, 41, 0.88) !important;
+    color: white;
 }
 
 .dataTables_wrapper .dataTables_length select {
-    background-color: white !important;
+    background-color: rgba(41, 41, 41, 0.88) !important;
+    color: white;
 }
-/* others */
 
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    background: rgba(41, 41, 41, 0.88) !important;
+    color: white !important;
+}
+
+/* others */
 .padding-zero {
     padding: 0 !important;
 }
