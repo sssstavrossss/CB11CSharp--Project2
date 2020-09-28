@@ -152,6 +152,7 @@ tbody > tr > td > div, thead > tr > th > div {
 
 tbody > tr > td > div:hover, thead > tr > th > div:hover {
     transform: scale(1.22);
+    cursor: pointer;
 }
 
 .dataTables_wrapper .dataTables_filter input[type=search] {
