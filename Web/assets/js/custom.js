@@ -38,7 +38,8 @@ function Data () {
             this.Trainers = Trainers;
         },
         Entities: [],
-        Return: function () { return this.Entities }
+        Return: function () { return this.Entities },
+        Keys: ["ID", "Title", "Stream", "Type", "Start Date", "End Date", "Students", "Assignments", "Trainers"]
     };
 
     var Trainers = {
@@ -50,7 +51,8 @@ function Data () {
             this.Courses = Courses;
         },
         Entities: [],
-        Return: function () { return this.Entities }
+        Return: function () { return this.Entities },
+        Keys: ["ID", "First Name", "Last Name", "Subject", "Courses"]
     };
 
     var Assignments = {
@@ -63,7 +65,8 @@ function Data () {
             this.Students = Students;
         },
         Entities: [],
-        Return: function () { return this.Entities }
+        Return: function () { return this.Entities },
+        Keys: ["ID", "Title", "Description", "Submission Date", "Students", "Courses"]
     };
 
     (function () {
@@ -90,29 +93,49 @@ function Data () {
         Assignments.Entities.push(new Assignments.Constructor(5, "Individual Project 3", "Individual Project 3 Description", "05/04/2021", [], []));
     })();
 
-    return { Students: Students, Courses: Courses, Trainers: Trainers, Assignments: Assignments }; 
+    (function () {
+        Students.Entities[0].Courses.push(Courses.Entities[0]);
+        Students.Entities[0].Assignments.push(Assignments.Entities[0]);
+        Students.Entities[0].Assignments.push(Assignments.Entities[2]);
+        Students.Entities[1].Courses.push(Courses.Entities[0]);
+        Students.Entities[1].Assignments.push(Assignments.Entities[0]);
+        Students.Entities[1].Assignments.push(Assignments.Entities[1]);
+        Students.Entities[2].Courses.push(Courses.Entities[1]);
+        Students.Entities[2].Assignments.push(Assignments.Entities[2]);
+        Students.Entities[3].Courses.push(Courses.Entities[1]);
+        Students.Entities[3].Assignments.push(Assignments.Entities[3]);
+        Students.Entities[3].Assignments.push(Assignments.Entities[4]);
+        Students.Entities[4].Courses.push(Courses.Entities[0]);
+        Students.Entities[4].Courses.push(Courses.Entities[1]);
+        Students.Entities[4].Assignments.push(Assignments.Entities[1]);
+        Students.Entities[5].Courses.push(Courses.Entities[1]);
+        Students.Entities[5].Courses.push(Courses.Entities[0]);
+        Students.Entities[5].Assignments.push(Assignments.Entities[4]);
+        Students.Entities[5].Assignments.push(Assignments.Entities[0]);
+        Students.Entities[6].Courses.push(Courses.Entities[0]);
+        Students.Entities[6].Assignments.push(Assignments.Entities[0]);
+        Students.Entities[6].Assignments.push(Assignments.Entities[2]);
+        Students.Entities[6].Assignments.push(Assignments.Entities[3]);
+        Students.Entities[7].Courses.push(Courses.Entities[1]);
+        Students.Entities[7].Assignments.push(Assignments.Entities[4]);
+        Students.Entities[8].Courses.push(Courses.Entities[0]);
+        Students.Entities[8].Assignments.push(Assignments.Entities[3]);
+        Students.Entities[9].Courses.push(Courses.Entities[0]);
+        Students.Entities[9].Assignments.push(Assignments.Entities[2]);
+    })();
+    
+    return [Students , Courses , Trainers , Assignments ]; 
 
 }
 
 //CREATE TABLE SELF INVOKED FUNCTION
 
 (function (Data) {
-    //Data
-    //Data.Students.Entities[0].firstName = 'gigi';
-    //console.log(Data.Students.Entities);
 
-    var div = document.getElementById('table_div');
-    var table = document.createElement('table');
-    table.setAttribute('id', 'table');
-
-    //var EntitiesKeys = Object.keys(Data.Students.Entities[0]);
-    //console.log(EntitiesKeys);
-    //EntitiesKeys.push()
-
-    var StudentHeaderHtml = `<div title="Add" class="margin-auto d-flex justify-content-center">
+    var HeaderHtml = `<div title="Add" class="margin-auto d-flex justify-content-center">
                     <i class="fa fa-plus fa-lg align-self-center" aria-hidden="true"></i>
                 </div>`;
-    var StudentBodyHtml = `<div class="margin-auto d-flex justify-content-center" title="Edit">
+    var BodyHtml = `<div class="margin-auto d-flex justify-content-center" title="Edit">
                     <i class="fa fa-pencil fa-lg align-self-center" aria-hidden="true"></i>
                 </div>
                 <div class="margin-auto d-flex justify-content-center" title="Delete">
@@ -122,48 +145,122 @@ function Data () {
     var HeaderClasses1 = 'margin-auto';
     var HeaderClasses2 = 'd-flex';
     var HeaderClasses3 = 'justify-content-center';
+    var Key = ["Trainers","Assignments","Students","Courses"];
 
-    (function () {
-        var thead = document.createElement('thead');
-        var tr = document.createElement('tr');
-        for (var item of Data.Students.Keys) {
-            var th = document.createElement('th');
-            var thtext = document.createTextNode(item);
-            th.appendChild(thtext);
-            tr.appendChild(th);
+    var i = 0;
+
+    for (var Dt of Data) {
+
+        var a = [1, 2];
+        var x = Dt.Entities;
+        var t = "ID";
+        console.log(Object.keys(Dt.Entities[0]));
+
+        var table = document.createElement('table');
+
+        if (i == 0) {
+            var div = document.getElementById('table_div_Students');
+            table.setAttribute('id', 'table_data_Students');
+        } else if (i == 1) {
+            var div = document.getElementById('table_div_Courses');
+            table.setAttribute('id', 'table_data_Courses');
+        } else if (i == 2) {
+            var div = document.getElementById('table_div_Trainers');
+            table.setAttribute('id', 'table_data_Trainers');
+        } else if (i == 3) {
+            var div = document.getElementById('table_div_Assignments');
+            table.setAttribute('id', 'table_data_Assignments');
         }
-        var thLast = document.createElement('th');
-        tr.appendChild(thLast);
-        thead.appendChild(tr);
-        table.appendChild(thead);
-        thLast.innerHTML = StudentHeaderHtml;
-        thLast.classList.add(HeaderClasses1, HeaderClasses2, HeaderClasses3);
-    })();
+        
+        //var n = Object.keys(Dt);
+        //console.log(Dt.Keys);
 
-    (function (Data) {
-        var tbody = document.createElement('tbody');
-        var EntitiesKeys = Object.keys(Data.Students.Entities[0]);
-        for (var item of Data.Students.Entities) {
-            (function (item, key) {
-                var tr = document.createElement('tr');
-                for (var item2 of key) {
-                    var td = document.createElement('td');
-                    var tdtext = document.createTextNode(item[item2]);
-                    td.appendChild(tdtext);
-                    tr.appendChild(td);
-                }
-                var tdLast = document.createElement('td');
-                tr.appendChild(tdLast);
-                tbody.appendChild(tr);
-                table.appendChild(tbody);
-                tdLast.innerHTML = StudentBodyHtml;
-                tdLast.classList.add(HeaderClasses1, HeaderClasses2, HeaderClasses3);
-            })(item, EntitiesKeys);
-        }
-        table.appendChild(tbody);
-    })(Data);
+        (function () {
+            var thead = document.createElement('thead');
+            var tr = document.createElement('tr');
+            for (var item of Dt.Keys) {
+                var th = document.createElement('th');
+                var thtext = document.createTextNode(item);
+                th.appendChild(thtext);
+                tr.appendChild(th);
+            }
+            var thLast = document.createElement('th');
+            tr.appendChild(thLast);
+            thead.appendChild(tr);
+            table.appendChild(thead);
+            thLast.innerHTML = HeaderHtml;
+            thLast.classList.add(HeaderClasses1, HeaderClasses2, HeaderClasses3);
+        })();
 
-    div.appendChild(table);
+        //var st = Object.keys(Data[0]);
+
+        (function () {
+            var tbody = document.createElement('tbody');
+            var EntitiesKeys = Object.keys(Dt.Entities[0]);
+            for (var item of Dt.Entities) {
+               // console.log(item['ID']);
+                (function () {
+                    var tr = document.createElement('tr');
+                    for (var item2 of EntitiesKeys) {
+                        //console.log(item[item2]);
+                        var text = "";
+                        if (Array.isArray(item[item2])) {
+                           //console.log(1);
+                            var ul = document.createElement('ul')
+                            for (var item3 of item[item2]) {
+                                if (item3.title) {
+                                    var li = document.createElement('li');
+                                    var litext = document.createTextNode(item3.title);
+                                    li.appendChild(litext);
+                                }
+                                if (item3.firstName) {
+                                    text = text + item.fistName + " " + item.lastName;
+                                }
+                                ul.appendChild(li);
+                            }
+                        } else {
+                            //console.log(2);
+                            text = item[item2];
+
+                        }
+                        if (text) {
+                            var td = document.createElement('td');
+                            var tdtext = document.createTextNode(text);
+                            td.appendChild(tdtext);
+                            tr.appendChild(td);
+                        }
+                        if (ul) {
+                            ul.classList.add('no-bullets');
+                            var td = document.createElement('td');
+                            td.appendChild(ul);
+                            tr.appendChild(td);
+                        }
+                    }
+                    var tdLast = document.createElement('td');
+                    tr.appendChild(tdLast);
+                    tbody.appendChild(tr);
+                    table.appendChild(tbody);
+                    tdLast.innerHTML = BodyHtml;
+                    tdLast.classList.add(HeaderClasses1, HeaderClasses2, HeaderClasses3);
+                    tr.setAttribute('data-id', item.ID);
+                    if (i === 0) {
+                        tr.setAttribute('data-type', 'Students');
+                    } else if (i === 1) {
+                        tr.setAttribute('data-type', 'Courses');
+                    } else if (i === 2) {
+                        tr.setAttribute('data-type', 'Trainers');
+                    } else if (i === 3) {
+                        tr.setAttribute('data-type', 'Assignments');
+                    }
+                })();
+            }
+            table.appendChild(tbody);
+        })();
+        console.log(div);
+
+        div.appendChild(table);
+        i++;
+    }
 
 })(Data());
 

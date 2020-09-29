@@ -47,7 +47,13 @@
                 </div>
                 <div class="row mt-5">
                     <div class="col-12 padding-zero">
-                        <div class="table-responsive" id="table_div">
+                        <div class="table-responsive text-center" id="table_div_Students">
+                        </div>
+                        <div class="table-responsive text-center" id="table_div_Courses">
+                        </div>
+                        <div class="table-responsive text-center" id="table_div_Trainers">
+                        </div>
+                        <div class="table-responsive text-center" id="table_div_Assignments">
                         </div>
                     </div>
                 </div>
@@ -59,7 +65,16 @@
     <!--DataTables-->
     <script>
         $(document).ready(function () {
-            $('#table').DataTable();
+            $('#table_data_Students').DataTable();
+        });
+        $(document).ready(function () {
+            $('#table_data_Assignments').DataTable();
+        });
+        $(document).ready(function () {
+            $('#table_data_Trainers').DataTable();
+        });
+        $(document).ready(function () {
+            $('#table_data_Courses').DataTable();
         });
     </script>
     <!--Vanta Background-->
@@ -71,7 +86,7 @@
             mouseControls: true,
             touchControls: true,
             gyroControls: false,
-            minHeight: 1000,
+            minHeight: 900,
             minWidth: 200.00,
             scale: 1.00,
             scaleMobile: 1.00,

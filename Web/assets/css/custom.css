@@ -121,8 +121,6 @@ table, thead, tbody {
 }
 
 .table-responsive {
-    overflow-y: visible !important;
-    overflow-x: visible !important;
     background-color: rgba(255, 255, 255, .08);
     backdrop-filter: blur(3px);
     padding: 15px 20px;
@@ -176,6 +174,12 @@ tbody > tr > td > div:hover, thead > tr > th > div:hover {
 .dataTables_wrapper .dataTables_paginate .paginate_button.current {
     background: rgba(41, 41, 41, 0.88) !important;
     color: white !important;
+}
+
+ul.no-bullets {
+    list-style-type: none !important; /* Remove bullets */
+    padding: 0 !important; /* Remove padding */
+    margin: 0 !important; /* Remove margins */
 }
 
 /* others */
