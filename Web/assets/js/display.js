@@ -16,13 +16,13 @@ $('thead > tr > th > i').click(function () {
 });
 
 //select table body icon first child 'gear'
-$('tbody > tr > td > i').eq(0).click(function () {
+$('tbody > tr > td > i:even').click(function () {
     closeNav();
     $('#myForms').width('400px');
 });
 
 //select table body icon second child 'bin'
-$('tbody > tr > td > i').eq(1).click(function () {
+$('tbody > tr > td > i:odd').click(function () {
     closeNav();
     $('#myForms').width('400px');
 });
@@ -31,10 +31,6 @@ $('tbody > tr > td > i').eq(1).click(function () {
 $('#myForms a').eq(0).click(function () {
     $('#myForms').width('0px');
 });
-
-//$('tbody > tr > td > i').last().click(function () {
-//    console.log('tbody > tr > td > i');
-//});
 
 //Display $Querry
 //Courses Table
