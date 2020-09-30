@@ -1,13 +1,6 @@
-﻿/* Set the width of the side navigation to 220px */
-function openNav() {
-    document.getElementById("mySidenav").style.width = "220px";
-}
+﻿//Dataset
 
-/* Set the width of the side navigation to 0 */
-function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-}
-
+//Main data function with objects and initiation of objects
 function Data () {
 
     var Students = {
@@ -128,33 +121,20 @@ function Data () {
 
 }
 
-//CREATE TABLE SELF INVOKED FUNCTION
-
+//table creation self invoked funtion
 (function (Data) {
 
-    var HeaderHtml = `<div title="Add" class="margin-auto d-flex justify-content-center">
-                    <i class="fa fa-plus fa-lg align-self-center" aria-hidden="true"></i>
-                </div>`;
-    var BodyHtml = `<div class="margin-auto d-flex justify-content-center" title="Edit">
-                    <i class="fa fa-pencil fa-lg align-self-center" aria-hidden="true"></i>
-                </div>
-                <div class="margin-auto d-flex justify-content-center" title="Delete">
-                    <i class="fa fa-trash fa-lg align-self-center ml-1" aria-hidden="true"></i>
-                </div>`;
+    var HeaderHtml = `<i class="icofont-plus-circle icofont-2x" title="add"></i>`;
+    var BodyHtml = `<i class="icofont-gear icofont-2x" title="edit"></i>
+                    <i class="icofont-bin icofont-2x" title="remove"></i>`;
 
-    var HeaderClasses1 = 'margin-auto';
-    var HeaderClasses2 = 'd-flex';
-    var HeaderClasses3 = 'justify-content-center';
-    var Key = ["Trainers","Assignments","Students","Courses"];
+    //var Key = ["Trainers","Assignments","Students","Courses"];
 
     var i = 0;
 
     for (var Dt of Data) {
 
-        var a = [1, 2];
-        var x = Dt.Entities;
-        var t = "ID";
-        console.log(Object.keys(Dt.Entities[0]));
+        //console.log(Object.keys(Dt.Entities[0]));
 
         var table = document.createElement('table');
 
@@ -189,7 +169,6 @@ function Data () {
             thead.appendChild(tr);
             table.appendChild(thead);
             thLast.innerHTML = HeaderHtml;
-            thLast.classList.add(HeaderClasses1, HeaderClasses2, HeaderClasses3);
         })();
 
         //var st = Object.keys(Data[0]);
@@ -241,7 +220,6 @@ function Data () {
                     tbody.appendChild(tr);
                     table.appendChild(tbody);
                     tdLast.innerHTML = BodyHtml;
-                    tdLast.classList.add(HeaderClasses1, HeaderClasses2, HeaderClasses3);
                     tr.setAttribute('data-id', item.ID);
                     if (i === 0) {
                         tr.setAttribute('data-type', 'Students');
@@ -256,7 +234,7 @@ function Data () {
             }
             table.appendChild(tbody);
         })();
-        console.log(div);
+        //console.log(div);
 
         div.appendChild(table);
         i++;
