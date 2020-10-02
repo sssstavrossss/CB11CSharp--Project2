@@ -2,19 +2,22 @@
     font-family: 'Raleway', sans-serif !important;
     color: white;
     height: 100%;
+    overflow-x: hidden;
 }
 
 .main-container {
     position: relative;
 }
 
-h2 {
-    text-shadow: 1px 1px rgba(17, 17, 17, 0.87);
-    letter-spacing: 1.7px;
+.table-responsive h2 {
+    text-shadow: 5px 5px 10px rgba(6, 6, 6, 0.95);
+    letter-spacing: 3px;
 }
 
 .menu-btn {
-    top: 0px;
+    top: 15px;
+    left: 15px;
+    z-index: 99;
 }
 
 i {
@@ -29,14 +32,14 @@ i {
     border-radius: 50%;
     background-color: rgba(15, 15, 15, 0.99);
     box-shadow: 0px 0px 15px 5px rgba(106, 106, 106, 0.66);
-    transform: translateX(-50%);
     transition: 0.33s;
     cursor: pointer;
+    opacity: 0.98;
 }
 
 .side-btn:hover {
     box-shadow: 0px 0px 7px 3px rgba(157, 157, 157, 0.70);
-    transform: scale(1.15) translateX(-45%);
+    transform: scale(1.15);
 }
 
 
@@ -117,7 +120,7 @@ i {
 /* TABLES */
 
 .dataTables_wrapper {
-    padding: 23px 0px !important;
+    padding: 15px 0px !important;
     color: white !important;
 }
 
@@ -144,6 +147,7 @@ table, thead, tbody {
     border: 1px solid rgba(255, 255, 255, .22);
     box-shadow: 1px 1px 10px rgba(255, 255, 255, .44);
     font-size: 13px;
+    opacity: 0.98;
 }
 
 thead {
