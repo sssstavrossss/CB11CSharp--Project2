@@ -5,10 +5,6 @@
     overflow-x: hidden;
 }
 
-.main-container {
-    position: relative;
-}
-
 .table-responsive h2 {
     text-shadow: 5px 5px 10px rgba(6, 6, 6, 0.95);
     letter-spacing: 3px;
@@ -24,12 +20,11 @@ i {
     color: rgb(132, 44, 44);
 }
 
-/* The side button functionality*/
-.side-btn {
-    position: absolute;
-    height: 48px;
-    width: 48px;
-    border-radius: 50%;
+nav {
+    height: 80px;
+}
+
+.side-btn, nav ul li a {
     background-color: rgba(15, 15, 15, 0.99);
     box-shadow: 0px 0px 15px 5px rgba(106, 106, 106, 0.66);
     transition: 0.33s;
@@ -37,14 +32,37 @@ i {
     opacity: 0.98;
 }
 
-.side-btn:hover {
+nav ul li a {
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: rgb(132, 44, 44);
+    text-decoration: none;
+}
+
+.side-btn {
+    height: 48px;
+    width: 48px;
+    border-radius: 50%;
+}
+
+nav ul li {
+    margin-top: 15px;
+}
+
+nav ul li:hover {
     box-shadow: 0px 0px 7px 3px rgba(157, 157, 157, 0.70);
     transform: scale(1.15);
 }
 
+nav ul li a:hover {
+    text-decoration: none;
+    color: rgb(235, 255, 142);
+}
+
+
 
 /* The side navigation menu */
-.sidenav, .fill-forms {
+.fill-forms {
     height: 100%; /* 100% Full-height */
     width: 0; /* 0 width - change this with JavaScript */
     position: fixed; /* Stay in place */
@@ -58,18 +76,13 @@ i {
     transition: 0.3s; /* 0.5 second transition effect to slide in the sidenav */
 }
 
-.sidenav {
-    left: 0;
-    border-right: 1px solid rgba(255, 255, 255, 0.30);
-}
-
 .fill-forms {
     right: 0px;
     border-left: 1px solid rgba(255, 255, 255, 0.30);
 }
 
 /* The navigation menu links */
-.sidenav a, .fill-forms a {
+.fill-forms a {
     padding: 8px 8px 8px 20px;
     text-decoration: none;
     font-size: 17px;
@@ -79,20 +92,15 @@ i {
 }
 
 /* When you mouse over the navigation links, change their color */
-.sidenav a:hover, .fill-forms a:hover {
+.fill-forms a:hover {
     color: rgb(235, 255, 142);
 }
 
 /* Position and style the close button (top right corner) */
-.sidenav .closebtn, .fill-forms .closebtn {
+.fill-forms .closebtn {
     position: absolute;
     top: 0;
     font-size: 36px;
-}
-
-.sidenav .closebtn {
-    right: 25px;
-    margin-left: 50px;
 }
 
 .fill-forms .closebtn {
@@ -100,24 +108,7 @@ i {
     margin-right: 10px;
 }
 
-/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
-#main {
-    transition: margin-left .5s;
-    padding: 20px;
-}
-
-/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-@media screen and (max-height: 450px) {
-    .sidenav, .fill-forms {
-        padding-top: 15px;
-    }
-
-    .sidenav a, .fill-forms {
-        font-size: 11px;
-    }
-}
-
-/* TABLES */
+/* Main */
 
 .dataTables_wrapper {
     padding: 15px 0px !important;
@@ -139,7 +130,7 @@ table, thead, tbody {
     padding: 15px 0px !important;
 }
 
-.table-responsive {
+.table-responsive, .instructions {
     background-color: rgba(255, 255, 255, .08);
     backdrop-filter: blur(3px);
     padding: 15px 20px;
@@ -192,6 +183,12 @@ ul.no-bullets {
     list-style-type: none !important; /* Remove bullets */
     padding: 0 !important; /* Remove padding */
     margin: 0 !important; /* Remove margins */
+}
+
+/*Instructions specific*/
+.instructions {
+    letter-spacing: 1px;
+    line-height: 2;
 }
 
 /*Footer*/

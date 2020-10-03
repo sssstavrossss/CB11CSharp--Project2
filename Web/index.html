@@ -25,28 +25,65 @@
     <link rel="stylesheet" href="/Web/assets/css/custom.css" />
 </head>
 <body id="vanta">
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" title="Close Menu"><i class="icofont-close-circled"></i></a>
-        <a href="#Instructions">Instructions</a>
-        <a href="#Courses">Courses</a>
-        <a href="#Students">Students</a>
-        <a href="#Assignments">Trainers</a>
-        <a href="#Trainers">Assignments</a>
-        <a href="#Billing">Billing</a>
-    </div>
-    <div class="container pt-2 pb-3 main-container">
-        <div class="row mt-5">
-            <div class="col-12 padding-zero">
-                <div title="Open Menu" onclick="openNav()" class="text-center side-btn menu-btn d-flex justify-content-center">
-                    <i class="icofont-settings icofont-2x align-self-center"></i>
+    <nav>
+        <div class="container  padding-zero">
+            <div class="row pt-3">
+                <div class="col-12">
+                    <ul class="no-bullets pt-3 d-flex justify-content-center">
+                        <li><a href="#Instructions">Instructions</a></li>
+                        <li class="ml-5"><a href="#Courses">Courses</a></li>
+                        <li class="ml-5"><a href="#Students">Students</a></li>
+                        <li class="ml-5"><a href="#Trainers">Trainers</a></li>
+                        <li class="ml-5"><a href="#Assignments">Assignments</a></li>
+                    </ul>
                 </div>
-                <div class="table-responsive text-center" id="table_div_Students"></div>
-                <div class="table-responsive text-center" id="table_div_Courses" style="display: none;"></div>
-                <div class="table-responsive text-center" id="table_div_Trainers" style="display: none;"></div>
-                <div class="table-responsive text-center" id="table_div_Assignments" style="display: none;"></div>
             </div>
         </div>
-    </div>
+    </nav>
+    <main>
+        <div class="container pt-2 pb-3 main-container">
+            <div class="row">
+                <div class="col-12 instructions">
+                    <div class="text-center pt-3 pb-3"><h2>Instructions</h2></div>
+                    <div>
+                        <h5>Basic Functionality</h5>
+                        <ul>
+                            <li>Click on a button from the above navbar to open the table of the entity the button suggests</li>
+                            <li>The table is automatically created</li>
+                            <li>Tables includes buttons to enhance functionality, see info below</li>
+                            <li>Data is dynamic, but do not refresh the page because i havent included session storage</li>
+                        </ul>
+                    </div>
+                    <div><h5>Table Info</h5></div>
+                    <div>
+                        <ul>
+                            <li>Datatables plugin is used which means</li>
+                            <li>You can sort, search data, it also includes paging</li>
+                            <li>You can add an entity by clicking "+" at the last cell of the header of the table</li>
+                            <li>You can edit a row by clicking "gear" button at the last cell of the body of the table</li>
+                            <li>You can delete a row by clicking "trash bin" button at the last cell of the body of the table</li>
+                        </ul>
+                    </div>
+                    <div><h5>Other Info</h5></div>
+                    <div>
+                        <ul>
+                            <li>Vanda plugin is used for moving background</li>
+                            <li>Dark theme with glass effect inspired by me to save energy and relax eyes</li>
+                            <li>"Instructions" (or homepage) looks poor but i had no time to think about it :D</li>
+                            <li>Body may seem to have bigger height than needed but Vanda plugin does not work properly when 
+                            <br /> body height is bigger than declared vanda minimun height (you need to minimize and maximize
+                            <br /> browser to see it properly)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 padding-zero">
+                    <div class="table-responsive text-center" id="table_div" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+    </main>
     <footer class="mt-4 mb-2">
         <div class="container">
             <div class="row">
@@ -56,27 +93,16 @@
             </div>
         </div>
     </footer>
+
+    <!--Forms-->
     <div id="myForms" class="fill-forms">
         <a href="javascript:void(0)" class="closebtn" title="Close Forms"><i class="icofont-close-circled"></i></a>
+        <div id="form-data"></div>
     </div>
 
+    <!--Scripts-->
     <script src="assets/js/custom.js"></script>
     <script src="assets/js/display.js"></script>
-    <!--DataTables-->
-    <script>
-        $(document).ready(function () {
-            $('#table_data_Students').DataTable();
-        });
-        $(document).ready(function () {
-            $('#table_data_Assignments').DataTable();
-        });
-        $(document).ready(function () {
-            $('#table_data_Trainers').DataTable();
-        });
-        $(document).ready(function () {
-            $('#table_data_Courses').DataTable();
-        });
-    </script>
     <!--Vanta Background-->
     <script src="/Web/assets/js/three.r119.min.js"></script>
     <script src="/Web/assets/js/vanta.waves.min.js"></script>
@@ -86,7 +112,7 @@
             mouseControls: true,
             touchControls: true,
             gyroControls: false,
-            minHeight: 980,
+            minHeight: 1000,
             minWidth: 200.00,
             scale: 1.00,
             scaleMobile: 1.00,

@@ -1,6 +1,6 @@
-﻿//Data and Creating Tables
+﻿//Data - Creating Tables - Creating Forms - Manipulating Data
 
-//Main data function with objects and initiation of objects
+// DATA Main data function with objects and initiation of objects
 function Data() {
 
     //Bellow ar the objects i need for the Assignments, which this function returns as list of objects
@@ -192,105 +192,164 @@ function Data() {
 
 }
 
-//table creation self invoked funtion
-(function (Data) {
+//Display & Create Table $Querry
+//Instructions
+$("nav ul :nth-child(1) a").click(function () {
+    $(".instructions").show();
+    $("#table_div").hide();
+    //CreateTable(Data());
+});
+//Courses Table
+$("nav ul :nth-child(2) a").click(function () {
+    $(".instructions").hide();
+    var DtIndex = "Courses";
+    CreateTable(Data().Courses, DtIndex);
+});
+//Students Table
+$("nav ul :nth-child(3) a").click(function () {
+    $(".instructions").hide();
+    var DtIndex = "Students";
+    CreateTable(Data().Students, DtIndex);
+});
+//Trainers Table
+$("nav ul :nth-child(4) a").click(function () {
+    $(".instructions").hide();
+    var DtIndex = "Trainers";
+    CreateTable(Data().Trainers, DtIndex);
+});
+//Assignments Table
+$("nav ul :nth-child(5) a").click(function () {
+    $(".instructions").hide();
+    var DtIndex = "Assignments";
+    CreateTable(Data().Assignments, DtIndex);
+});
+
+//CREATING TABLES table creation self invoked funtion
+function CreateTable(DtValue, DtIndex) {
+
+    //console.log(Object.keys(DtValue));
 
     //Creating static text for elements for buttons in last column of table
-    var HeaderHtml = `<th><i class="icofont-plus-circle icofont-2x" title="add"></i></th>`;
+    var HeaderHtml = `<th><i class="icofont-plus-circle icofont-2x" title="add" id="openForms"></i></th>`;
     var BodyHtml = `<td><i class="icofont-gear icofont-2x" title="edit"></i>
                     <i class="icofont-bin icofont-2x" title="remove"></i></td>`;
 
-    //To loop accordingly to Data return objects
-    jQuery.map(Data, function (value, index) { CreateTable(value, index) });
+    //Creating proper ids 
+    var divid = `#table_div`;
+    var tableid = `table_data_${DtIndex}`;
+    var div = $(divid);
+    div.hide();
+    div.empty(); //emptying table div to create a new one
 
-    function CreateTable(DtValue, DtIndex) {
+    //Create Header
+    var header = `<h2 class="pt-1">Manage ${DtIndex} Data</h2>`;
 
-        //Creating proper ids 
-        var divid = `#table_div_${DtIndex}`;
-        var tableid = `table_data_${DtIndex}`;
-        var div = $(divid);
+    //Initiate Table
+    var table = $('<table>');
+    table.attr('id', tableid);
 
-        //Create Header
-        var header = `<h2 class="pt-1">Manage ${DtIndex} Data</h2>`;
+    //Create Head
+    var tharray = CreateTHeadTh(); //to create an array of th elements and append them to thead tr
 
-        //Initiate Table
-        var table = $('<table>');
-        table.attr('id', tableid);
-
-        //Create Head
-        var tharray = CreateTHeadTh(); //to create an array of th elements and append them to thead tr
-
-        var thead = $('<thead>') //Doing head Appends
-            .append($('<tr>')
-                .append([
-                    tharray,
-                    HeaderHtml
-                ]));
-
-        function CreateTHeadTh() { //To get each head th
-            var ar = [];
-            jQuery.map(DtValue.Keys, function (v) { ar.push(`<th>${v}</th>`) });
-            return ar;
-        }
-
-        //Create Body
-        var trarray = CreateTBodyTr(); //to create an array of tr elements and append them to tbody
-
-        var tbody = $('<tbody>') //Doing body Appends
+    var thead = $('<thead>') //Doing head Appends
+        .append($('<tr>')
             .append([
-                trarray
-            ]);
+                tharray,
+                HeaderHtml
+            ]));
 
-        function CreateTBodyTr() { //To get each body tr
-            var ar = [];
-            jQuery.map(DtValue.Entities, function (val) { ar.push(`<tr>${CreateTBodyTrTd(val)}</tr>`) });
-            return ar;
-        }
-
-        function CreateTBodyTrTd(val) { //To get each body tr td
-            var ar = [];
-            jQuery.map(val, function (v, i) { ar.push(`<td>${GetTBodyTrTd(v, i)}</td>`) });
-            ar.push(BodyHtml);
-            return ar;
-        }
-
-        function GetTBodyTrTd(v, i) { //To add proper value to body tr td
-            var td = "";
-            if (jQuery.isArray(v)) {
-                td += `<ul class="no-bullets">${GetTBodyTrTdUl(v, i)}</ul>`;
-            } else {
-                td = v;
-            }
-            return td;
-        }
-
-        function GetTBodyTrTdUl(v, i) { //To add ul in case body tr td is a list
-            var li = "";
-            if (i === "Courses" || i === "Assignments") {
-                for (var item of v) {
-                    li += `<li>${item.title}</li>`;
-                }
-            } else {
-                for (var item of v) {
-                    li += `<li>${item.firstName + " " + item.lastName}</li>`;
-                }
-            }
-            return li;
-        }
-
-        //Doing Appends
-        table.append([
-            thead,
-            tbody
-        ]);
-
-        div.append([
-            header,
-            table]);
-
+    function CreateTHeadTh() { //To get each head th
+        var ar = [];
+        //console.log(DtValue.Keys);
+        jQuery.map(DtValue.Keys, function (v) { ar.push(`<th>${v}</th>`) });
+        return ar;
     }
 
-})(Data());
+    //Create Body
+    var trarray = CreateTBodyTr(); //to create an array of tr elements and append them to tbody
+
+    var tbody = $('<tbody>') //Doing body Appends
+        .append([
+            trarray
+        ]);
+
+    function CreateTBodyTr() { //To get each body tr
+        var ar = [];
+        jQuery.map(DtValue.Entities, function (val) { ar.push(`<tr>${CreateTBodyTrTd(val)}</tr>`) });
+        return ar;
+    }
+
+    function CreateTBodyTrTd(val) { //To get each body tr td
+        var ar = [];
+        jQuery.map(val, function (v, i) { ar.push(`<td>${GetTBodyTrTd(v, i)}</td>`) });
+        ar.push(BodyHtml);
+        return ar;
+    }
+
+    function GetTBodyTrTd(v, i) { //To add proper value to body tr td
+        var td = "";
+        if (jQuery.isArray(v)) {
+            td += `<ul class="no-bullets">${GetTBodyTrTdUl(v, i)}</ul>`;
+        } else {
+            td = v;
+        }
+        return td;
+    }
+
+    function GetTBodyTrTdUl(v, i) { //To add ul in case body tr td is a list
+        var li = "";
+        if (i === "Courses" || i === "Assignments") {
+            for (var item of v) {
+                li += `<li>${item.title}</li>`;
+            }
+        } else {
+            for (var item of v) {
+                li += `<li>${item.firstName + " " + item.lastName}</li>`;
+            }
+        }
+        return li;
+    }
+
+    //Doing Appends
+    table.append([
+        thead, 
+        tbody
+    ]);
+
+    div.append([
+        header,
+        table]);
+
+    (function () {
+        //console.log(`#table_data_${DtIndex}`);
+        $(`#table_data_${DtIndex}`).DataTable();
+    })();
+
+
+    div.show();
+
+    //DISPLAY - CREATING FORMS 
+    //select table head icon 'plus'
+    $('thead > tr > th > i').click(function () {
+        $('#myForms').width('400px');
+    });
+
+    //select table body icon first child 'gear'
+    $('tbody > tr > td > i:even').click(function () {
+        $('#myForms').width('400px');
+    });
+
+    //select table body icon second child 'bin'
+    $('tbody > tr > td > i:odd').click(function () {
+        $('#myForms').width('400px');
+    });
+
+    //select forms close btn
+    $('#myForms a').eq(0).click(function () {
+        $('#myForms').width('0px');
+    });
+
+}
 
 
 
