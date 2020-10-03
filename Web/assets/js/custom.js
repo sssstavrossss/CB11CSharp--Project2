@@ -1,7 +1,10 @@
-﻿//Dataset
+﻿//Data and Creating Tables
 
 //Main data function with objects and initiation of objects
 function Data() {
+
+    //Bellow ar the objects i need for the Assignments, which this function returns as list of objects
+    //They include the entity contructor, the entity list so i can store the values, and the key list so i have proper table 'head tr th' values
 
     var Students = {
         Constructor: function Students(SID, firstName, lastName, dateOfBirth, tuitionFees, Courses, Assignments) {
@@ -58,6 +61,7 @@ function Data() {
         Keys: ["ID", "Title", "Description", "Submission Date", "Students", "Courses"]
     };
 
+    //Stupid long function to add data to objects above :(
     (function () {
         Students.Entities.push(new Students.Constructor(1, "Stavros", "Vasileiadis", 1991, 2000, [], []));
         Students.Entities.push(new Students.Constructor(2, "Johann Sebastian", "Bach", 1986, 2500, [], []));
@@ -191,14 +195,17 @@ function Data() {
 //table creation self invoked funtion
 (function (Data) {
 
+    //Creating static text for elements for buttons in last column of table
     var HeaderHtml = `<th><i class="icofont-plus-circle icofont-2x" title="add"></i></th>`;
     var BodyHtml = `<td><i class="icofont-gear icofont-2x" title="edit"></i>
                     <i class="icofont-bin icofont-2x" title="remove"></i></td>`;
 
+    //To loop accordingly to Data return objects
     jQuery.map(Data, function (value, index) { CreateTable(value, index) });
 
     function CreateTable(DtValue, DtIndex) {
 
+        //Creating proper ids 
         var divid = `#table_div_${DtIndex}`;
         var tableid = `table_data_${DtIndex}`;
         var div = $(divid);
@@ -213,40 +220,41 @@ function Data() {
         //Create Head
         var tharray = CreateTHeadTh(); //to create an array of th elements and append them to thead tr
 
-        var thead = $('<thead>')
+        var thead = $('<thead>') //Doing head Appends
             .append($('<tr>')
                 .append([
                     tharray,
                     HeaderHtml
                 ]));
 
-        function CreateTHeadTh() {
+        function CreateTHeadTh() { //To get each head th
             var ar = [];
             jQuery.map(DtValue.Keys, function (v) { ar.push(`<th>${v}</th>`) });
             return ar;
         }
 
+        //Create Body
         var trarray = CreateTBodyTr(); //to create an array of tr elements and append them to tbody
 
-        var tbody = $('<tbody>')
+        var tbody = $('<tbody>') //Doing body Appends
             .append([
                 trarray
             ]);
 
-        function CreateTBodyTr() {
+        function CreateTBodyTr() { //To get each body tr
             var ar = [];
             jQuery.map(DtValue.Entities, function (val) { ar.push(`<tr>${CreateTBodyTrTd(val)}</tr>`) });
             return ar;
         }
 
-        function CreateTBodyTrTd(val) {
+        function CreateTBodyTrTd(val) { //To get each body tr td
             var ar = [];
             jQuery.map(val, function (v, i) { ar.push(`<td>${GetTBodyTrTd(v, i)}</td>`) });
             ar.push(BodyHtml);
             return ar;
         }
 
-        function GetTBodyTrTd(v, i) {
+        function GetTBodyTrTd(v, i) { //To add proper value to body tr td
             var td = "";
             if (jQuery.isArray(v)) {
                 td += `<ul class="no-bullets">${GetTBodyTrTdUl(v, i)}</ul>`;
@@ -256,7 +264,7 @@ function Data() {
             return td;
         }
 
-        function GetTBodyTrTdUl(v, i) {
+        function GetTBodyTrTdUl(v, i) { //To add ul in case body tr td is a list
             var li = "";
             if (i === "Courses" || i === "Assignments") {
                 for (var item of v) {
@@ -270,6 +278,7 @@ function Data() {
             return li;
         }
 
+        //Doing Appends
         table.append([
             thead,
             tbody
