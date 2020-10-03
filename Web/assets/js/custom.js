@@ -195,37 +195,42 @@ function Data() {
 //Display & Create Table $Querry
 //Instructions
 $("nav ul :nth-child(1) a").click(function () {
+    $('#myForms').hide();
     $(".instructions").show();
     $("#table_div").hide();
     //CreateTable(Data());
 });
 //Courses Table
 $("nav ul :nth-child(2) a").click(function () {
+    $('#myForms').hide();
     $(".instructions").hide();
     var DtIndex = "Courses";
-    CreateTable(Data().Courses, DtIndex);
+    CreateTable(Data(), Data().Courses, DtIndex);
 });
 //Students Table
 $("nav ul :nth-child(3) a").click(function () {
+    $('#myForms').hide();
     $(".instructions").hide();
     var DtIndex = "Students";
-    CreateTable(Data().Students, DtIndex);
+    CreateTable(Data(), Data().Students, DtIndex);
 });
 //Trainers Table
 $("nav ul :nth-child(4) a").click(function () {
+    $('#myForms').hide();
     $(".instructions").hide();
     var DtIndex = "Trainers";
-    CreateTable(Data().Trainers, DtIndex);
+    CreateTable(Data(), Data().Trainers, DtIndex);
 });
 //Assignments Table
 $("nav ul :nth-child(5) a").click(function () {
+    $('#myForms').hide();
     $(".instructions").hide();
     var DtIndex = "Assignments";
-    CreateTable(Data().Assignments, DtIndex);
+    CreateTable(Data(), Data().Assignments, DtIndex);
 });
 
-//CREATING TABLES table creation self invoked funtion
-function CreateTable(DtValue, DtIndex) {
+//CREATING TABLES
+function CreateTable(Data, DtValue, DtIndex) {
 
     //console.log(Object.keys(DtValue));
 
@@ -332,24 +337,176 @@ function CreateTable(DtValue, DtIndex) {
     //select table head icon 'plus'
     $('thead > tr > th > i').click(function () {
         $('#myForms').width('400px');
+        CreateRowForm(Data, DtValue);
+        $('#myForms').show();
     });
 
     //select table body icon first child 'gear'
     $('tbody > tr > td > i:even').click(function () {
         $('#myForms').width('400px');
+        $('#myForms').show();
     });
 
     //select table body icon second child 'bin'
     $('tbody > tr > td > i:odd').click(function () {
         $('#myForms').width('400px');
+        $('#myForms').show();
     });
 
     //select forms close btn
     $('#myForms a').eq(0).click(function () {
         $('#myForms').width('0px');
+        $('#myForms').hide();
+    });
+
+    
+
+}
+
+//CREATING FORMS
+//Add entity form
+function CreateRowForm(Data, DtValue) {
+
+    var div = $('#form-data');
+    div.empty();
+
+    var form = $('<form>');
+
+    var input = "";
+
+    var key = Object.keys(DtValue.Entities[0])
+
+    if (key.includes("firstName")) {
+        input += `<label for="firstName class="font-weight-bold">First Name</label>
+                    <input type="text" id="firstName" name="firstName" minlength="3" maxlength="25" pattern="[a-zA-Z]+" required
+                    placeholder="eg Steven"/><br>`;
+    }
+    if (key.includes("lastName")) {
+        input += `<label for="lastName" class="font-weight-bold">Last Name</label>
+                    <input type="text" id="lastName" name="lastName"  minlength="3" maxlength="25" pattern="[a-zA-Z]+" required
+                    placeholder="eg Papadopoulos"/><br>`;
+    }
+    if (key.includes("title")) {
+        input += `<label for="title" class="font-weight-bold">Title</label>
+                    <input type="text" id="title" name="title"  minlength="3" maxlength="25" pattern="[a-zA-Z0-9]+" required
+                    placeholder="eg Javascript"/><br>`;
+    }
+    if (key.includes("description")) {
+        input += `<label for="description" class="font-weight-bold">Description</label>
+                    <input type="text" id="description" name="description"  minlength="3" maxlength="50" pattern="[a-zA-Z0-9]+" required
+                    placeholder="eg Web development and front end"/><br>`;
+    }
+    if (key.includes("tuitionFees")) {
+        input += `<label for="tuitionFees" class="font-weight-bold">Tuition Fees</label>
+                    <input type="text" id="tuitionFees" name="tuitionFees"  minlength="3" maxlength="4" pattern="[0-9]+" required
+                    placeholder="eg 3000"/><br>`;
+    }
+    if (key.includes("dateOfBirth")) {
+        input += `<label for="dateOfBirth" class="font-weight-bold">Birth Year</label>
+                    <input type="text" id="dateOfBirth" name="dateOfBirth"  minlength="4" maxlength="4"  pattern="[0-9]+" required
+                    placeholder="eg 1991"/><br>`;
+    }
+    if (key.includes("subject")) {
+        input += `<label for="subject" class="font-weight-bold">Subject</label>
+                    <input type="text" id="subject" name="subject"  minlength="3" maxlength="25"  pattern="[a-zA-Z]+" required
+                    placeholder="eg Front End"/><br>`;
+    }
+    if (key.includes("stream")) {
+        input += `<label for="stream" class="font-weight-bold">Stream</label>
+                    <input type="text" id="stream" name="stream"  minlength="3" maxlength="25"  pattern="[a-zA-Z]+" required
+                    placeholder="eg Stream"/><br>`;
+    }
+    if (key.includes("type")) {
+        input += `<label for="type" class="font-weight-bold">Type</label>
+                    <input type="text" id="type" name="type"  minlength="3" maxlength="25"  pattern="[a-zA-Z]+" required
+                    placeholder="eg Web development"/><br>`;
+    }
+    if (key.includes("subDateTime")) {
+        input += `<label for="subDateTime" class="font-weight-bold">Submission Date</label>
+                    <input type="date" id="subDateTime" name="subDateTime" required/><br>`;
+    }
+    if (key.includes("startDate")) {
+        input += `<label for="startDate" class="font-weight-bold">Start Date</label>
+                    <input type="date" id="startDate" name="startDate" required/><br>`;
+    }
+    if (key.includes("endDate")) {
+        input += `<label for="endDate" class="font-weight-bold">End Date</label>
+                    <input type="date" id="endDate" name="endDate" required/><br>`;
+    }
+    if (key.includes("Students")) {
+        input += `<label class="pt-2 font-weight-bold">Assign Students</label><br>
+                    ${PickStudents(Data.Students.Entities)}`;
+    }
+    if (key.includes("Courses")) {
+        input += `<label class="pt-2 font-weight-bold">Assign Courses</label><br>
+                    ${PickCourses(Data.Courses.Entities)}`;
+    }
+    if (key.includes("Assignments")) {
+        input += `<label class="pt-2 font-weight-bold">Assign Assignments</label><br>
+                    ${PickAssignments(Data.Assignments.Entities)}`;
+    }
+    if (key.includes("Trainers")) {
+        input += `<label class="pt-2 font-weight-bold">Assign Trainers</label><br>
+                    ${PickTrainers(Data.Trainers.Entities)}`;
+    }
+
+    function PickStudents(Entities) {
+        var input = "";
+        jQuery.map(Entities, function (v, i) {
+            input += `<label style="width: 90%;" for="Students${i}">${v.firstName + " " + v.lastName}</label>
+                     <input type="checkbox" id="Students${i}" name="Students${i}" value="${i}" /></br>`;
+        });
+        return input;
+    }
+
+    function PickTrainers(Entities) {
+        var input = "";
+        jQuery.map(Entities, function (v, i) {
+            input += `<label style="width: 90%;" for="Trainers${i}">${v.firstName + " " + v.lastName}</label>
+                     <input type="checkbox" id="Trainers${i}" name="Trainers${i}" value="${i}" /></br>`;
+        });
+        return input;
+    }
+
+    function PickCourses(Entities) {
+        var input = "";
+        jQuery.map(Entities, function (v, i) {
+            input += `<label style="width: 90%;" for="Courses${i}">${v.title}</label>
+                     <input type="checkbox" id="Courses${i}" name="Courses${i}" value="${i}" /></br>`;
+        });
+        return input;
+    }
+
+    function PickAssignments(Entities) {
+        var input = "";
+        jQuery.map(Entities, function (v, i) {
+            input += `<label style="width: 90%;" for="Assignments${i}">${v.title}</label>
+                     <input type="checkbox" id="Assignments${i}" name="Assignments${i}" value="${i}" /></br>`;
+        });
+        return input;
+    }
+
+    form.attr('id', 'form');
+
+    $('#form-data').addClass('pl-3 pl-4 mt-1');
+
+    form.append(input);
+
+    var btn = `<button type="submit" form="form" value="Submit" class="mt-5 ml-3" id="form-submit">Submit</button>`;
+
+    div.append([
+        form,
+        btn
+    ]);
+
+    //Prevent Default
+    $('#form').submit(function (event) {
+        //console.log('hi');
+        //console.log($('#form'));
     });
 
 }
 
-
-
+// || keys.includes("lastName") || keys.includes("title") || keys.includes("description") ||
+//keys.inculdes("tuitionFees") || keys.includes("dateOfBirth") || keys.includes("subject") || keys.includes("stream") ||
+//    keys.includes("SubDateTime") || keys.includes("type")
