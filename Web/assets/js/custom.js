@@ -16,10 +16,24 @@ var Students = {
     },
     Entities: [],
     Keys: ["ID", "First Name", "Last Name", "Birthdate", "Tuition Fees", "Courses", "Assignments"],
-    Remove: function Remove(id) {
+    RemoveSelf: function RemoveSelf(id) {
         this.Entities = $.grep(this.Entities, function (e) { //remove the specific entity from array where id taken from above
             return e.ID != id;
         });
+    },
+    RemoveCourses: function RemoveCourses(id) {
+        for (var item of this.Entities) {
+            item.Courses = $.grep(item.Courses, function (e) {
+                return e.ID != id;
+            });
+        }
+    },
+    RemoveAssignments: function RemoveAssignments(id) {
+        for (var item of this.Entities) {
+            item.Assignments = $.grep(item.Assignments, function (e) {
+                return e.ID != id;
+            });
+        }
     }
 };
 
@@ -37,10 +51,31 @@ var Courses = {
     },
     Entities: [],
     Keys: ["ID", "Title", "Stream", "Type", "Start Date", "End Date", "Students", "Assignments", "Trainers"],
-    Remove: function Remove(id) {
+    RemoveSelf: function RemoveSelf(id) {
         this.Entities = $.grep(this.Entities, function (e) { //remove the specific entity from array where id taken from above
             return e.ID != id;
         });
+    },
+    RemoveAssignments: function RemoveAssignments(id) {
+        for (var item of this.Entities) {
+            item.Assignments = $.grep(item.Assignments, function (e) {
+                return e.ID != id;
+            });
+        }
+    },
+    RemoveStudents: function RemoveStudents(id) {
+        for (var item of this.Entities) {
+            item.Students = $.grep(item.Students, function (e) {
+                return e.ID != id;
+            });
+        }
+    },
+    RemoveTrainers: function Remove(id) {
+        for (var item of this.Entities) {
+            item.Trainers = $.grep(item.Trainers, function (e) {
+                return e.ID != id;
+            });
+        }
     }
 };
 
@@ -54,10 +89,17 @@ var Trainers = {
     },
     Entities: [],
     Keys: ["ID", "First Name", "Last Name", "Subject", "Courses"],
-    Remove: function Remove(id) {
+    RemoveSelf: function RemoveSelf(id) {
         this.Entities = $.grep(this.Entities, function (e) { //remove the specific entity from array where id taken from above
             return e.ID != id;
         });
+    },
+    RemoveCourses: function RemoveCourses(id) {
+        for (var item of this.Entities) {
+            item.Courses = $.grep(item.Courses, function (e) {
+                return e.ID != id;
+            });
+        }
     }
 };
 
@@ -72,10 +114,24 @@ var Assignments = {
     },
     Entities: [],
     Keys: ["ID", "Title", "Description", "Submission Date", "Students", "Courses"],
-    Remove: function Remove(id) {
+    RemoveSelf: function RemoveSelf(id) {
         this.Entities = $.grep(this.Entities, function (e) { //remove the specific entity from array where id taken from above
             return e.ID != id;
         });
+    },
+    RemoveCourses: function RemoveCourses(id) {
+        for (var item of this.Entities) {
+            item.Courses = $.grep(item.Courses, function (e) {
+                return e.ID != id;
+            });
+        }
+    },
+    RemoveStudents: function RemoveStudents(id) {
+        for (var item of this.Entities) {
+            item.Students = $.grep(item.Students, function (e) {
+                return e.ID != id;
+            });
+        }
     }
 };
 
@@ -372,7 +428,8 @@ function CreateTable(Data, DtValue, DtIndex) {
     $('tbody > tr > td > i:odd').click(function () {
         var id = parseInt($(this).closest('tr').find('td:first').html()); //to get the row id i want to delete
         $(this).closest('tr').remove(); // removing the row
-        DtValue.Remove(id);
+        DtValue.RemoveSelf(id);
+        DynamicData(DtIndex, id); //function to remove the specific deleted field from other tables entries
     });
 
     //select forms close btn
@@ -527,4 +584,25 @@ function CreateRowForm(Data, DtValue) {
         //console.log($('#form'));
     });
 
+}
+
+//Dynamic Data Table Function
+function DynamicData(index, id) {
+    //console.log(Students);
+    if (index === "Courses") {
+        Students.RemoveCourses(id);
+        Assignments.RemoveCourses(id);
+        Trainers.RemoveCourses(id);
+    }
+    if (index === "Assignments") {
+        Students.RemoveAssignments(id);
+        Courses.RemoveAssignments(id);
+    }
+    if (index === "Trainers") {
+        Courses.RemoveTrainers(id);
+    }
+    if (index === "Students") {
+        Courses.RemoveStudents(id);
+        Assignments.RemoveAssignments(id);
+    }
 }
