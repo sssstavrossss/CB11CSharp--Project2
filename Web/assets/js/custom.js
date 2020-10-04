@@ -1,5 +1,8 @@
 ﻿//Data - Creating Tables - Creating Forms - Manipulating Data
 
+//sessionStorage.setItem("once", "1");
+//console.log(sessionStorage.once);
+
 // DATA Main data function with objects and initiation of objects
 function Data() {
 
@@ -17,7 +20,14 @@ function Data() {
             this.Assignments = Assignments;
         },
         Entities: [],
-        Keys: ["ID", "First Name", "Last Name", "Birthdate", "Tuition Fees", "Courses", "Assignments"]
+        Keys: ["ID", "First Name", "Last Name", "Birthdate", "Tuition Fees", "Courses", "Assignments"],
+        Remove: function Remove(id) {
+            console.log(this.Entities);
+            this.Entities = $.grep(this.Entities, function (e) { //remove the specific entity from array where id taken from above
+                return e.ID != id;
+            });
+            console.log(this.Entities);
+        }
     };
 
     var Courses = {
@@ -33,7 +43,14 @@ function Data() {
             this.Trainers = Trainers;
         },
         Entities: [],
-        Keys: ["ID", "Title", "Stream", "Type", "Start Date", "End Date", "Students", "Assignments", "Trainers"]
+        Keys: ["ID", "Title", "Stream", "Type", "Start Date", "End Date", "Students", "Assignments", "Trainers"],
+        Remove: function Remove(id) {
+            console.log(this.Entities);
+            this.Entities = $.grep(this.Entities, function (e) { //remove the specific entity from array where id taken from above
+                return e.ID != id;
+            });
+            console.log(this.Entities);
+        }
     };
 
     var Trainers = {
@@ -45,7 +62,14 @@ function Data() {
             this.Courses = Courses;
         },
         Entities: [],
-        Keys: ["ID", "First Name", "Last Name", "Subject", "Courses"]
+        Keys: ["ID", "First Name", "Last Name", "Subject", "Courses"],
+        Remove: function Remove(id) {
+            console.log(this.Entities);
+            this.Entities = $.grep(this.Entities, function (e) { //remove the specific entity from array where id taken from above
+                return e.ID != id;
+            });
+            console.log(this.Entities);
+        }
     };
 
     var Assignments = {
@@ -58,11 +82,20 @@ function Data() {
             this.Students = Students;
         },
         Entities: [],
-        Keys: ["ID", "Title", "Description", "Submission Date", "Students", "Courses"]
+        Keys: ["ID", "Title", "Description", "Submission Date", "Students", "Courses"],
+        Remove: function Remove(id) {
+            console.log(this.Entities);
+            this.Entities = $.grep(this.Entities, function (e) { //remove the specific entity from array where id taken from above
+                return e.ID != id;
+            });
+            console.log(this.Entities);
+        }
     };
 
+    Fill();
+
     //Stupid long function to add data to objects above :(
-    (function () {
+    function Fill() {
         Students.Entities.push(new Students.Constructor(1, "Stavros", "Vasileiadis", 1991, 2000, [], []));
         Students.Entities.push(new Students.Constructor(2, "Johann Sebastian", "Bach", 1986, 2500, [], []));
         Students.Entities.push(new Students.Constructor(3, "Nikolaos", "Skalkotas", 1977, 2100, [], []));
@@ -186,11 +219,12 @@ function Data() {
         Assignments.Entities[3].Students.push(Students.Entities[9]);
         Assignments.Entities[4].Courses.push(Courses.Entities[2]);
         Assignments.Entities[4].Students.push(Students.Entities[9]);
-    })();
+    }
 
     return { Students: Students, Courses: Courses, Trainers: Trainers, Assignments: Assignments }; 
 
 }
+
 
 //Display & Create Table $Querry
 //Instructions
@@ -349,8 +383,10 @@ function CreateTable(Data, DtValue, DtIndex) {
 
     //select table body icon second child 'bin'
     $('tbody > tr > td > i:odd').click(function () {
-        $('#myForms').width('400px');
-        $('#myForms').show();
+        var id = parseInt($(this).closest('tr').find('td:first').html()); //to get the row id i want to delete
+        $(this).closest('tr').remove(); // removing the row
+        DtValue.Remove(id);
+        console.log(DtValue.Remove);
     });
 
     //select forms close btn
@@ -506,7 +542,3 @@ function CreateRowForm(Data, DtValue) {
     });
 
 }
-
-// || keys.includes("lastName") || keys.includes("title") || keys.includes("description") ||
-//keys.inculdes("tuitionFees") || keys.includes("dateOfBirth") || keys.includes("subject") || keys.includes("stream") ||
-//    keys.includes("SubDateTime") || keys.includes("type")
