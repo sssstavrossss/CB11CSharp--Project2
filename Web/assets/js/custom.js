@@ -1,228 +1,215 @@
 ﻿//Data - Creating Tables - Creating Forms - Manipulating Data
 
-//sessionStorage.setItem("once", "1");
-//console.log(sessionStorage.once);
+
+//Bellow ar the objects i need for the Assignments,
+//They include the entity contructor, the entity list so i can store the values, and the key list so i have proper table 'head tr th' values
+
+var Students = {
+    Constructor: function Students(SID, firstName, lastName, dateOfBirth, tuitionFees, Courses, Assignments) {
+        this.ID = SID;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.tuitionFees = tuitionFees;
+        this.Courses = Courses;
+        this.Assignments = Assignments;
+    },
+    Entities: [],
+    Keys: ["ID", "First Name", "Last Name", "Birthdate", "Tuition Fees", "Courses", "Assignments"],
+    Remove: function Remove(id) {
+        this.Entities = $.grep(this.Entities, function (e) { //remove the specific entity from array where id taken from above
+            return e.ID != id;
+        });
+    }
+};
+
+var Courses = {
+    Constructor: function Courses(CID, title, stream, type, startDate, endDate, Students, Assignments, Trainers) {
+        this.ID = CID;
+        this.title = title;
+        this.stream = stream;
+        this.type = type;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.Students = Students;
+        this.Assignments = Assignments;
+        this.Trainers = Trainers;
+    },
+    Entities: [],
+    Keys: ["ID", "Title", "Stream", "Type", "Start Date", "End Date", "Students", "Assignments", "Trainers"],
+    Remove: function Remove(id) {
+        this.Entities = $.grep(this.Entities, function (e) { //remove the specific entity from array where id taken from above
+            return e.ID != id;
+        });
+    }
+};
+
+var Trainers = {
+    Constructor: function Trainers(TID, firstName, lastName, subject, Courses) {
+        this.ID = TID;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.subject = subject;
+        this.Courses = Courses;
+    },
+    Entities: [],
+    Keys: ["ID", "First Name", "Last Name", "Subject", "Courses"],
+    Remove: function Remove(id) {
+        this.Entities = $.grep(this.Entities, function (e) { //remove the specific entity from array where id taken from above
+            return e.ID != id;
+        });
+    }
+};
+
+var Assignments = {
+    Constructor: function Assignments(AID, title, description, subDateTime, Courses, Students) {
+        this.ID = AID;
+        this.title = title;
+        this.description = description;
+        this.subDateTime = subDateTime;
+        this.Courses = Courses;
+        this.Students = Students;
+    },
+    Entities: [],
+    Keys: ["ID", "Title", "Description", "Submission Date", "Students", "Courses"],
+    Remove: function Remove(id) {
+        this.Entities = $.grep(this.Entities, function (e) { //remove the specific entity from array where id taken from above
+            return e.ID != id;
+        });
+    }
+};
+
+//Stupid long function to add data to objects above :(
+(function() {
+    Students.Entities.push(new Students.Constructor(1, "Stavros", "Vasileiadis", 1991, 2000, [], []));
+    Students.Entities.push(new Students.Constructor(2, "Johann Sebastian", "Bach", 1986, 2500, [], []));
+    Students.Entities.push(new Students.Constructor(3, "Nikolaos", "Skalkotas", 1977, 2100, [], []));
+    Students.Entities.push(new Students.Constructor(4, "Giacinto", "Scelsi", 1955, 2400, [], []));
+    Students.Entities.push(new Students.Constructor(5, "Edgard", "Varese", 1988, 3000, [], []));
+    Students.Entities.push(new Students.Constructor(6, "Amadeus", "Mozart", 1991, 2000, [], []));
+    Students.Entities.push(new Students.Constructor(7, "Ludwig", "van Beethoven", 1992, 2500, [], []));
+    Students.Entities.push(new Students.Constructor(8, "Johann", "Stauess", 1999, 3000, [], []));
+    Students.Entities.push(new Students.Constructor(9, "Igor", "Stravisky", 1974, 2100, [], []));
+    Students.Entities.push(new Students.Constructor(10, "Krzysztof", "Penderecki", 1985, 2400, [], []));
+    Courses.Entities.push(new Courses.Constructor(1, "C#", "Programming", "Part time", "01/02/2021", "01/08/2021", [], [], []));
+    Courses.Entities.push(new Courses.Constructor(2, "Go", "Programming", "Full time", "05/03/2021", "15/06/2021", [], [], []));
+    Courses.Entities.push(new Courses.Constructor(3, "Java", "Programming", "Full time", "05/03/2021", "15/06/2021", [], [], []));
+    Trainers.Entities.push(new Trainers.Constructor(1, "Ioannes", "Philippidis", "Back End", []));
+    Trainers.Entities.push(new Trainers.Constructor(2, "Constantine", "Palaiologos", "Front End", []));
+    Trainers.Entities.push(new Trainers.Constructor(3, "Yorgo", "Papadopoulos", "Back End", []));
+    Assignments.Entities.push(new Assignments.Constructor(1, "Invididual Project 1", "Individual Project 1 Description", "30/06/2021", [], []));
+    Assignments.Entities.push(new Assignments.Constructor(2, "Idividual Project 2", "Individual Project 2 Description", "15/05/2021", [], []));
+    Assignments.Entities.push(new Assignments.Constructor(3, "Team Project 1", "Team Project 1 Description", "15/06/2021", [], []));
+    Assignments.Entities.push(new Assignments.Constructor(4, "Team Project 2", "Tean Project 2 Description", "01/08/2021", [], []));
+    Assignments.Entities.push(new Assignments.Constructor(5, "Individual Project 3", "Individual Project 3 Description", "05/04/2021", [], []));
+    Students.Entities[0].Courses.push(Courses.Entities[0]);
+    Students.Entities[0].Assignments.push(Assignments.Entities[1]);
+    Students.Entities[0].Assignments.push(Assignments.Entities[2]);
+    Students.Entities[1].Courses.push(Courses.Entities[1]);
+    Students.Entities[1].Assignments.push(Assignments.Entities[0]);
+    Students.Entities[1].Assignments.push(Assignments.Entities[3]);
+    Students.Entities[2].Courses.push(Courses.Entities[2]);
+    Students.Entities[2].Assignments.push(Assignments.Entities[1]);
+    Students.Entities[2].Assignments.push(Assignments.Entities[3]);
+    Students.Entities[3].Courses.push(Courses.Entities[0]);
+    Students.Entities[3].Courses.push(Courses.Entities[1]);
+    Students.Entities[3].Assignments.push(Assignments.Entities[1]);
+    Students.Entities[3].Assignments.push(Assignments.Entities[2]);
+    Students.Entities[4].Courses.push(Courses.Entities[1]);
+    Students.Entities[4].Assignments.push(Assignments.Entities[0]);
+    Students.Entities[4].Assignments.push(Assignments.Entities[2]);
+    Students.Entities[4].Assignments.push(Assignments.Entities[3]);
+    Students.Entities[5].Courses.push(Courses.Entities[2]);
+    Students.Entities[5].Assignments.push(Assignments.Entities[0]);
+    Students.Entities[5].Assignments.push(Assignments.Entities[1]);
+    Students.Entities[6].Courses.push(Courses.Entities[1]);
+    Students.Entities[6].Courses.push(Courses.Entities[2]);
+    Students.Entities[6].Assignments.push(Assignments.Entities[1]);
+    Students.Entities[6].Assignments.push(Assignments.Entities[2]);
+    Students.Entities[7].Courses.push(Courses.Entities[0]);
+    Students.Entities[7].Courses.push(Courses.Entities[1]);
+    Students.Entities[7].Assignments.push(Assignments.Entities[0]);
+    Students.Entities[7].Assignments.push(Assignments.Entities[3]);
+    Students.Entities[8].Courses.push(Courses.Entities[0]);
+    Students.Entities[8].Courses.push(Courses.Entities[2]);
+    Students.Entities[8].Assignments.push(Assignments.Entities[1]);
+    Students.Entities[8].Assignments.push(Assignments.Entities[3]);
+    Students.Entities[9].Courses.push(Courses.Entities[0]);
+    Students.Entities[9].Assignments.push(Assignments.Entities[0]);
+    Students.Entities[9].Assignments.push(Assignments.Entities[4]);
+    Courses.Entities[0].Students.push(Students.Entities[0]);
+    Courses.Entities[0].Students.push(Students.Entities[3]);
+    Courses.Entities[0].Students.push(Students.Entities[7]);
+    Courses.Entities[0].Students.push(Students.Entities[8]);
+    Courses.Entities[0].Students.push(Students.Entities[9]);
+    Courses.Entities[0].Assignments.push(Assignments.Entities[0]);
+    Courses.Entities[0].Assignments.push(Assignments.Entities[1]);
+    Courses.Entities[0].Assignments.push(Assignments.Entities[2]);
+    Courses.Entities[0].Assignments.push(Assignments.Entities[4]);
+    Courses.Entities[0].Trainers.push(Trainers.Entities[0]);
+    Courses.Entities[1].Students.push(Students.Entities[1]);
+    Courses.Entities[1].Students.push(Students.Entities[3]);
+    Courses.Entities[1].Students.push(Students.Entities[4]);
+    Courses.Entities[1].Students.push(Students.Entities[6]);
+    Courses.Entities[1].Students.push(Students.Entities[7]);
+    Courses.Entities[1].Assignments.push(Assignments.Entities[0]);
+    Courses.Entities[1].Assignments.push(Assignments.Entities[1]);
+    Courses.Entities[1].Assignments.push(Assignments.Entities[2]);
+    Courses.Entities[1].Assignments.push(Assignments.Entities[3]);
+    Courses.Entities[1].Trainers.push(Trainers.Entities[0]);
+    Courses.Entities[1].Trainers.push(Trainers.Entities[2]);
+    Courses.Entities[2].Students.push(Students.Entities[2]);
+    Courses.Entities[2].Students.push(Students.Entities[5]);
+    Courses.Entities[2].Students.push(Students.Entities[6]);
+    Courses.Entities[2].Students.push(Students.Entities[8]);
+    Courses.Entities[2].Assignments.push(Assignments.Entities[0]);
+    Courses.Entities[2].Assignments.push(Assignments.Entities[2]);
+    Courses.Entities[2].Assignments.push(Assignments.Entities[3]);
+    Courses.Entities[2].Assignments.push(Assignments.Entities[4]);
+    Courses.Entities[2].Trainers.push(Trainers.Entities[1]);
+    Trainers.Entities[0].Courses.push(Courses.Entities[0]);
+    Trainers.Entities[0].Courses.push(Courses.Entities[1]);
+    Trainers.Entities[1].Courses.push(Courses.Entities[2]);
+    Trainers.Entities[2].Courses.push(Courses.Entities[1]);
+    Assignments.Entities[0].Courses.push(Courses.Entities[0]);
+    Assignments.Entities[0].Courses.push(Courses.Entities[1]);
+    Assignments.Entities[0].Courses.push(Courses.Entities[2]);
+    Assignments.Entities[0].Students.push(Students.Entities[1]);
+    Assignments.Entities[0].Students.push(Students.Entities[4]);
+    Assignments.Entities[0].Students.push(Students.Entities[5]);
+    Assignments.Entities[0].Students.push(Students.Entities[7]);
+    Assignments.Entities[0].Students.push(Students.Entities[9]);
+    Assignments.Entities[1].Courses.push(Courses.Entities[0]);
+    Assignments.Entities[1].Courses.push(Courses.Entities[1]);
+    Assignments.Entities[1].Courses.push(Courses.Entities[2]);
+    Assignments.Entities[1].Students.push(Students.Entities[0]);
+    Assignments.Entities[1].Students.push(Students.Entities[2]);
+    Assignments.Entities[1].Students.push(Students.Entities[3]);
+    Assignments.Entities[1].Students.push(Students.Entities[5]);
+    Assignments.Entities[1].Students.push(Students.Entities[6]);
+    Assignments.Entities[1].Students.push(Students.Entities[8]);
+    Assignments.Entities[2].Courses.push(Courses.Entities[0]);
+    Assignments.Entities[2].Courses.push(Courses.Entities[1]);
+    Assignments.Entities[2].Courses.push(Courses.Entities[2]);
+    Assignments.Entities[2].Students.push(Students.Entities[0]);
+    Assignments.Entities[2].Students.push(Students.Entities[3]);
+    Assignments.Entities[2].Students.push(Students.Entities[4]);
+    Assignments.Entities[2].Students.push(Students.Entities[6]);
+    Assignments.Entities[3].Courses.push(Courses.Entities[1]);
+    Assignments.Entities[3].Courses.push(Courses.Entities[2]);
+    Assignments.Entities[3].Students.push(Students.Entities[1]);
+    Assignments.Entities[3].Students.push(Students.Entities[2]);
+    Assignments.Entities[3].Students.push(Students.Entities[4]);
+    Assignments.Entities[3].Students.push(Students.Entities[7]);
+    Assignments.Entities[3].Students.push(Students.Entities[9]);
+    Assignments.Entities[4].Courses.push(Courses.Entities[2]);
+    Assignments.Entities[4].Students.push(Students.Entities[9]);
+})();
+
 
 // DATA Main data function with objects and initiation of objects
-function Data() {
-
-    //Bellow ar the objects i need for the Assignments, which this function returns as list of objects
-    //They include the entity contructor, the entity list so i can store the values, and the key list so i have proper table 'head tr th' values
-
-    var Students = {
-        Constructor: function Students(SID, firstName, lastName, dateOfBirth, tuitionFees, Courses, Assignments) {
-            this.ID = SID;
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.dateOfBirth = dateOfBirth;
-            this.tuitionFees = tuitionFees;
-            this.Courses = Courses;
-            this.Assignments = Assignments;
-        },
-        Entities: [],
-        Keys: ["ID", "First Name", "Last Name", "Birthdate", "Tuition Fees", "Courses", "Assignments"],
-        Remove: function Remove(id) {
-            console.log(this.Entities);
-            this.Entities = $.grep(this.Entities, function (e) { //remove the specific entity from array where id taken from above
-                return e.ID != id;
-            });
-            console.log(this.Entities);
-        }
-    };
-
-    var Courses = {
-        Constructor: function Courses(CID, title, stream, type, startDate, endDate, Students, Assignments, Trainers) {
-            this.ID = CID;
-            this.title = title;
-            this.stream = stream;
-            this.type = type;
-            this.startDate = startDate;
-            this.endDate = endDate;
-            this.Students = Students;
-            this.Assignments = Assignments;
-            this.Trainers = Trainers;
-        },
-        Entities: [],
-        Keys: ["ID", "Title", "Stream", "Type", "Start Date", "End Date", "Students", "Assignments", "Trainers"],
-        Remove: function Remove(id) {
-            console.log(this.Entities);
-            this.Entities = $.grep(this.Entities, function (e) { //remove the specific entity from array where id taken from above
-                return e.ID != id;
-            });
-            console.log(this.Entities);
-        }
-    };
-
-    var Trainers = {
-        Constructor: function Trainers(TID, firstName, lastName, subject, Courses) {
-            this.ID = TID;
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.subject = subject;
-            this.Courses = Courses;
-        },
-        Entities: [],
-        Keys: ["ID", "First Name", "Last Name", "Subject", "Courses"],
-        Remove: function Remove(id) {
-            console.log(this.Entities);
-            this.Entities = $.grep(this.Entities, function (e) { //remove the specific entity from array where id taken from above
-                return e.ID != id;
-            });
-            console.log(this.Entities);
-        }
-    };
-
-    var Assignments = {
-        Constructor: function Assignments(AID, title, description, subDateTime, Courses, Students) {
-            this.ID = AID;
-            this.title = title;
-            this.description = description;
-            this.subDateTime = subDateTime;
-            this.Courses = Courses;
-            this.Students = Students;
-        },
-        Entities: [],
-        Keys: ["ID", "Title", "Description", "Submission Date", "Students", "Courses"],
-        Remove: function Remove(id) {
-            console.log(this.Entities);
-            this.Entities = $.grep(this.Entities, function (e) { //remove the specific entity from array where id taken from above
-                return e.ID != id;
-            });
-            console.log(this.Entities);
-        }
-    };
-
-    Fill();
-
-    //Stupid long function to add data to objects above :(
-    function Fill() {
-        Students.Entities.push(new Students.Constructor(1, "Stavros", "Vasileiadis", 1991, 2000, [], []));
-        Students.Entities.push(new Students.Constructor(2, "Johann Sebastian", "Bach", 1986, 2500, [], []));
-        Students.Entities.push(new Students.Constructor(3, "Nikolaos", "Skalkotas", 1977, 2100, [], []));
-        Students.Entities.push(new Students.Constructor(4, "Giacinto", "Scelsi", 1955, 2400, [], []));
-        Students.Entities.push(new Students.Constructor(5, "Edgard", "Varese", 1988, 3000, [], []));
-        Students.Entities.push(new Students.Constructor(6, "Amadeus", "Mozart", 1991, 2000, [], []));
-        Students.Entities.push(new Students.Constructor(7, "Ludwig", "van Beethoven", 1992, 2500, [], []));
-        Students.Entities.push(new Students.Constructor(8, "Johann", "Stauess", 1999, 3000, [], []));
-        Students.Entities.push(new Students.Constructor(9, "Igor", "Stravisky", 1974, 2100, [], []));
-        Students.Entities.push(new Students.Constructor(10, "Krzysztof", "Penderecki", 1985, 2400, [], []));
-        Courses.Entities.push(new Courses.Constructor(1, "C#", "Programming", "Part time", "01/02/2021", "01/08/2021", [], [], []));
-        Courses.Entities.push(new Courses.Constructor(2, "Go", "Programming", "Full time", "05/03/2021", "15/06/2021", [], [], []));
-        Courses.Entities.push(new Courses.Constructor(3, "Java", "Programming", "Full time", "05/03/2021", "15/06/2021", [], [], []));
-        Trainers.Entities.push(new Trainers.Constructor(1, "Ioannes", "Philippidis", "Back End", []));
-        Trainers.Entities.push(new Trainers.Constructor(2, "Constantine", "Palaiologos", "Front End", []));
-        Trainers.Entities.push(new Trainers.Constructor(3, "Yorgo", "Papadopoulos", "Back End", []));
-        Assignments.Entities.push(new Assignments.Constructor(1, "Invididual Project 1", "Individual Project 1 Description", "30/06/2021", [], []));
-        Assignments.Entities.push(new Assignments.Constructor(2, "Idividual Project 2", "Individual Project 2 Description", "15/05/2021", [], []));
-        Assignments.Entities.push(new Assignments.Constructor(3, "Team Project 1", "Team Project 1 Description", "15/06/2021", [], []));
-        Assignments.Entities.push(new Assignments.Constructor(4, "Team Project 2", "Tean Project 2 Description", "01/08/2021", [], []));
-        Assignments.Entities.push(new Assignments.Constructor(5, "Individual Project 3", "Individual Project 3 Description", "05/04/2021", [], []));
-        Students.Entities[0].Courses.push(Courses.Entities[0]);
-        Students.Entities[0].Assignments.push(Assignments.Entities[1]);
-        Students.Entities[0].Assignments.push(Assignments.Entities[2]);
-        Students.Entities[1].Courses.push(Courses.Entities[1]);
-        Students.Entities[1].Assignments.push(Assignments.Entities[0]);
-        Students.Entities[1].Assignments.push(Assignments.Entities[3]);
-        Students.Entities[2].Courses.push(Courses.Entities[2]);
-        Students.Entities[2].Assignments.push(Assignments.Entities[1]);
-        Students.Entities[2].Assignments.push(Assignments.Entities[3]);
-        Students.Entities[3].Courses.push(Courses.Entities[0]);
-        Students.Entities[3].Courses.push(Courses.Entities[1]);
-        Students.Entities[3].Assignments.push(Assignments.Entities[1]);
-        Students.Entities[3].Assignments.push(Assignments.Entities[2]);
-        Students.Entities[4].Courses.push(Courses.Entities[1]);
-        Students.Entities[4].Assignments.push(Assignments.Entities[0]);
-        Students.Entities[4].Assignments.push(Assignments.Entities[2]);
-        Students.Entities[4].Assignments.push(Assignments.Entities[3]);
-        Students.Entities[5].Courses.push(Courses.Entities[2]);
-        Students.Entities[5].Assignments.push(Assignments.Entities[0]);
-        Students.Entities[5].Assignments.push(Assignments.Entities[1]);
-        Students.Entities[6].Courses.push(Courses.Entities[1]);
-        Students.Entities[6].Courses.push(Courses.Entities[2]);
-        Students.Entities[6].Assignments.push(Assignments.Entities[1]);
-        Students.Entities[6].Assignments.push(Assignments.Entities[2]);
-        Students.Entities[7].Courses.push(Courses.Entities[0]);
-        Students.Entities[7].Courses.push(Courses.Entities[1]);
-        Students.Entities[7].Assignments.push(Assignments.Entities[0]);
-        Students.Entities[7].Assignments.push(Assignments.Entities[3]);
-        Students.Entities[8].Courses.push(Courses.Entities[0]);
-        Students.Entities[8].Courses.push(Courses.Entities[2]);
-        Students.Entities[8].Assignments.push(Assignments.Entities[1]);
-        Students.Entities[8].Assignments.push(Assignments.Entities[3]);
-        Students.Entities[9].Courses.push(Courses.Entities[0]);
-        Students.Entities[9].Assignments.push(Assignments.Entities[0]);
-        Students.Entities[9].Assignments.push(Assignments.Entities[4]);
-        Courses.Entities[0].Students.push(Students.Entities[0]);
-        Courses.Entities[0].Students.push(Students.Entities[3]);
-        Courses.Entities[0].Students.push(Students.Entities[7]);
-        Courses.Entities[0].Students.push(Students.Entities[8]);
-        Courses.Entities[0].Students.push(Students.Entities[9]);
-        Courses.Entities[0].Assignments.push(Assignments.Entities[0]);
-        Courses.Entities[0].Assignments.push(Assignments.Entities[1]);
-        Courses.Entities[0].Assignments.push(Assignments.Entities[2]);
-        Courses.Entities[0].Assignments.push(Assignments.Entities[4]);
-        Courses.Entities[0].Trainers.push(Trainers.Entities[0]);
-        Courses.Entities[1].Students.push(Students.Entities[1]);
-        Courses.Entities[1].Students.push(Students.Entities[3]);
-        Courses.Entities[1].Students.push(Students.Entities[4]);
-        Courses.Entities[1].Students.push(Students.Entities[6]);
-        Courses.Entities[1].Students.push(Students.Entities[7]);
-        Courses.Entities[1].Assignments.push(Assignments.Entities[0]);
-        Courses.Entities[1].Assignments.push(Assignments.Entities[1]);
-        Courses.Entities[1].Assignments.push(Assignments.Entities[2]);
-        Courses.Entities[1].Assignments.push(Assignments.Entities[3]);
-        Courses.Entities[1].Trainers.push(Trainers.Entities[0]);
-        Courses.Entities[1].Trainers.push(Trainers.Entities[2]);
-        Courses.Entities[2].Students.push(Students.Entities[2]);
-        Courses.Entities[2].Students.push(Students.Entities[5]);
-        Courses.Entities[2].Students.push(Students.Entities[6]);
-        Courses.Entities[2].Students.push(Students.Entities[8]);
-        Courses.Entities[2].Assignments.push(Assignments.Entities[0]);
-        Courses.Entities[2].Assignments.push(Assignments.Entities[2]);
-        Courses.Entities[2].Assignments.push(Assignments.Entities[3]);
-        Courses.Entities[2].Assignments.push(Assignments.Entities[4]);
-        Courses.Entities[2].Trainers.push(Trainers.Entities[1]);
-        Trainers.Entities[0].Courses.push(Courses.Entities[0]);
-        Trainers.Entities[0].Courses.push(Courses.Entities[1]);
-        Trainers.Entities[1].Courses.push(Courses.Entities[2]);
-        Trainers.Entities[2].Courses.push(Courses.Entities[1]);
-        Assignments.Entities[0].Courses.push(Courses.Entities[0]);
-        Assignments.Entities[0].Courses.push(Courses.Entities[1]);
-        Assignments.Entities[0].Courses.push(Courses.Entities[2]);
-        Assignments.Entities[0].Students.push(Students.Entities[1]);
-        Assignments.Entities[0].Students.push(Students.Entities[4]);
-        Assignments.Entities[0].Students.push(Students.Entities[5]);
-        Assignments.Entities[0].Students.push(Students.Entities[7]);
-        Assignments.Entities[0].Students.push(Students.Entities[9]);
-        Assignments.Entities[1].Courses.push(Courses.Entities[0]);
-        Assignments.Entities[1].Courses.push(Courses.Entities[1]);
-        Assignments.Entities[1].Courses.push(Courses.Entities[2]);
-        Assignments.Entities[1].Students.push(Students.Entities[0]);
-        Assignments.Entities[1].Students.push(Students.Entities[2]);
-        Assignments.Entities[1].Students.push(Students.Entities[3]);
-        Assignments.Entities[1].Students.push(Students.Entities[5]);
-        Assignments.Entities[1].Students.push(Students.Entities[6]);
-        Assignments.Entities[1].Students.push(Students.Entities[8]);
-        Assignments.Entities[2].Courses.push(Courses.Entities[0]);
-        Assignments.Entities[2].Courses.push(Courses.Entities[1]);
-        Assignments.Entities[2].Courses.push(Courses.Entities[2]);
-        Assignments.Entities[2].Students.push(Students.Entities[0]);
-        Assignments.Entities[2].Students.push(Students.Entities[3]);
-        Assignments.Entities[2].Students.push(Students.Entities[4]);
-        Assignments.Entities[2].Students.push(Students.Entities[6]);
-        Assignments.Entities[3].Courses.push(Courses.Entities[1]);
-        Assignments.Entities[3].Courses.push(Courses.Entities[2]);
-        Assignments.Entities[3].Students.push(Students.Entities[1]);
-        Assignments.Entities[3].Students.push(Students.Entities[2]);
-        Assignments.Entities[3].Students.push(Students.Entities[4]);
-        Assignments.Entities[3].Students.push(Students.Entities[7]);
-        Assignments.Entities[3].Students.push(Students.Entities[9]);
-        Assignments.Entities[4].Courses.push(Courses.Entities[2]);
-        Assignments.Entities[4].Students.push(Students.Entities[9]);
-    }
-
-    return { Students: Students, Courses: Courses, Trainers: Trainers, Assignments: Assignments }; 
-
+function Data(Students, Courses, Asignments, Trainers) {
+    return { Students: this.Students, Courses: this.Courses, Trainers: this.Trainers, Assignments: this.Assignments }; 
 }
 
 
@@ -266,7 +253,7 @@ $("nav ul :nth-child(5) a").click(function () {
 //CREATING TABLES
 function CreateTable(Data, DtValue, DtIndex) {
 
-    //console.log(Object.keys(DtValue));
+    //console.log(Data);
 
     //Creating static text for elements for buttons in last column of table
     var HeaderHtml = `<th><i class="icofont-plus-circle icofont-2x" title="add" id="openForms"></i></th>`;
@@ -386,7 +373,6 @@ function CreateTable(Data, DtValue, DtIndex) {
         var id = parseInt($(this).closest('tr').find('td:first').html()); //to get the row id i want to delete
         $(this).closest('tr').remove(); // removing the row
         DtValue.Remove(id);
-        console.log(DtValue.Remove);
     });
 
     //select forms close btn
