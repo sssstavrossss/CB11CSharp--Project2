@@ -221,3 +221,14 @@ footer p {
 #myForms::placeholder {
     color: rgb(126, 126, 126);
 }
+
+#logo {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+#logo img {
+    height: 80px;
+    width: auto;
+}
