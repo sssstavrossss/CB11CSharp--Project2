@@ -423,7 +423,7 @@ function CreateTable(Data, DtValue, DtIndex) {
         var id = parseInt($(this).closest('tr').find('td:first').html());
         //console.log(id, DtIndex);
         //jQuery.map(DtValue.Entities[id], function (v, i) { console.log(v, i) });
-        CreateRowForm(Data, DtValue, DtIndex, 2);
+        CreateRowForm(Data, DtValue, DtIndex, 2, id);
 
         var val = DtValue.Entities; // I need to isolate the specific entity
 
@@ -460,7 +460,7 @@ function CreateTable(Data, DtValue, DtIndex) {
 
 //CREATING FORMS
 //Add entity form
-function CreateRowForm(Data, DtValue, DtIndex, k) {
+function CreateRowForm(Data, DtValue, DtIndex, k, id) {
     //console.log(k);
 
     var div = $('#form-data');
@@ -603,342 +603,403 @@ function CreateRowForm(Data, DtValue, DtIndex, k) {
     $('#form').submit(function (event) {
         event.preventDefault();
 
-        if (k === 1) {
+        //if (k === 1) {
 
-            if (DtIndex === "Courses") {
-                var ID;
+        if (DtIndex === "Courses") {
+            var ID;
+                
+            var title;
+            var stream;
+            var type;
+            var startDate;
+            var endDate;
+            var Students = [];
+            var Assignments = [];
+            var Trainers = [];
+
+            if (k === 1) {
                 var arID = [];
-                var title;
-                var stream;
-                var type;
-                var startDate;
-                var endDate;
-                var Students = [];
-                var Assignments = [];
-                var Trainers = [];
                 jQuery.map(DtValue.Entities, function (v) {
                     arID.push(v.ID);
                 });
-
                 ID = Math.max.apply(Math, arID) + 1;
-                title = $('#title').val();
-                stream = $('#stream').val();
-                type = $('#type').val();
-                startDate = $('#startDate').val();
-                endDate = $('#endDate').val();
-                //console.log(Data.Students.Entities);
+            }
 
-                var st = $('[id^="Students"]');
-                var arst = [];
+            if (k === 2) {
+                ID = id;
+            }
 
-                for (var item of st) {
-                    //console.log(item.checked)
-                    if (item.checked) {
-                        arst.push(item.value);
+            title = $('#title').val();
+            stream = $('#stream').val();
+            type = $('#type').val();
+            startDate = $('#startDate').val();
+            endDate = $('#endDate').val();
+            //console.log(Data.Students.Entities);
+
+            var st = $('[id^="Students"]');
+            var arst = [];
+
+            for (var item of st) {
+                //console.log(item.checked)
+                if (item.checked) {
+                    arst.push(item.value);
+                }
+            }
+
+            jQuery.map(Data.Students['Entities'], function (v) {
+                for (var item of arst) {
+                    if (item == v.ID) {
+                        Students.push(v);
                     }
                 }
+            });
 
+            var as = $('[id^="Assignments"]');
+            var aras = [];
+
+            for (var item of as) {
+                //console.log(item.checked)
+                if (item.checked) {
+                    aras.push(item.value);
+                }
+            }
+
+            jQuery.map(Data.Assignments['Entities'], function (v) {
+                for (var item of aras) {
+                    if (item == v.ID) {
+                        Assignments.push(v);
+                    }
+                }
+            });
+
+            var tr = $('[id^="Trainers"]');
+            var artr = [];
+
+            for (var item of tr) {
+                //console.log(item.checked)
+                if (item.checked) {
+                    artr.push(item.value);
+                }
+            }
+
+            jQuery.map(Data.Trainers['Entities'], function (v) {
+                for (var item of aras) {
+                    if (item == v.ID) {
+                        Trainers.push(v);
+                    }
+                }
+            });
+
+            if (k === 2) {
+                DtValue.RemoveSelf(id);
+            }
+
+            Data.Courses.Entities.push(new Data.Courses.Constructor(ID, title, stream, type, startDate, endDate, Students, Assignments, Trainers));
+
+            Data.Students.RemoveCourses(ID);
+            Data.Assignments.RemoveCourses(ID);
+            Data.Trainers.RemoveCourses(ID);
+
+             
+            for (var item of Students) {
                 jQuery.map(Data.Students['Entities'], function (v) {
-                    for (var item of arst) {
-                        if (item == v.ID) {
-                            Students.push(v);
-                        }
+                    if (v.ID === item.ID) {
+                        jQuery.map(Data.Courses['Entities'], function (v2) {
+                            if (v2.ID === ID) {
+                                v.Courses.push(v2);
+                            }
+                        })
                     }
-                });
+                })
+            }
 
-                var as = $('[id^="Assignments"]');
-                var aras = [];
-
-                for (var item of as) {
-                    //console.log(item.checked)
-                    if (item.checked) {
-                        aras.push(item.value);
-                    }
-                }
-
+            for (var item of Assignments) {
                 jQuery.map(Data.Assignments['Entities'], function (v) {
-                    for (var item of aras) {
-                        if (item == v.ID) {
-                            Assignments.push(v);
-                        }
+                    if (v.ID === item.ID) {
+                        jQuery.map(Data.Courses['Entities'], function (v2) {
+                            if (v2.ID === ID) {
+                                v.Courses.push(v2);
+                            }
+                        })
                     }
-                });
+                })
+            }
 
-                var tr = $('[id^="Trainers"]');
-                var artr = [];
-
-                for (var item of tr) {
-                    //console.log(item.checked)
-                    if (item.checked) {
-                        artr.push(item.value);
-                    }
-                }
-
+            for (var item of Trainers) {
                 jQuery.map(Data.Trainers['Entities'], function (v) {
-                    for (var item of aras) {
-                        if (item == v.ID) {
-                            Trainers.push(v);
-                        }
+                    if (v.ID === item.ID) {
+                        jQuery.map(Data.Courses['Entities'], function (v2) {
+                            if (v2.ID === ID) {
+                                v.Courses.push(v2);
+                            }
+                        })
                     }
-                });
-
-                Data.Courses.Entities.push(new Data.Courses.Constructor(ID, title, stream, type, startDate, endDate, Students, Assignments, Trainers));
-
-                for (var item of Students) {
-                    jQuery.map(Data.Students['Entities'], function (v) {
-                        if (v.ID === item.ID) {
-                            jQuery.map(Data.Courses['Entities'], function (v) {
-                                item.Courses.push(v);
-                            })
-                        }
-                    })
-                }
-
-                for (var item of Assignments) {
-                    jQuery.map(Data.Assignments['Entities'], function (v) {
-                        if (v.ID === item.ID) {
-                            jQuery.map(Data.Courses['Entities'], function (v) {
-                                item.Courses.push(v);
-                            })
-                        }
-                    })
-                }
-
-                for (var item of Trainers) {
-                    jQuery.map(Data.Trainers['Entities'], function (v) {
-                        if (v.ID === item.ID) {
-                            jQuery.map(Data.Courses['Entities'], function (v) {
-                                item.Courses.push(v);
-                            })
-                        }
-                    })
-                }
-
-                //console.log(Data.Courses);
-
+                })
             }
 
-            if (DtIndex === "Students") {
-                var ID;
+        }
+
+        if (DtIndex === "Students") {
+            var ID;
+            var firstName;
+            var lastName;
+            var dateOfBirth;
+            var tuitionFees;
+            var Courses = [];
+            var Assignments = [];
+
+            if (k === 1) {
                 var arID = [];
-                var firstName;
-                var lastName;
-                var dateOfBirth;
-                var tuitionFees;
-                var Courses = [];
-                var Assignments = [];
                 jQuery.map(DtValue.Entities, function (v) {
                     arID.push(v.ID);
                 });
-
                 ID = Math.max.apply(Math, arID) + 1;
-                firstName = $('#firstName').val();
-                lastName = $('#lastName').val();
-                dateOfBirth = $('#dateOfBirth').val();
-                tuitionFees = $('#tuitionFees').val();
-                //console.log(Data.Students.Entities);
+            }
 
-                var cr = $('[id^="Courses"]');
-                var arcr = [];
+            if (k === 2) {
+                ID = id;
+            }
+            
+            firstName = $('#firstName').val();
+            lastName = $('#lastName').val();
+            dateOfBirth = $('#dateOfBirth').val();
+            tuitionFees = $('#tuitionFees').val();
+            //console.log(Data.Students.Entities);
 
-                for (var item of cr) {
-                    //console.log(item.checked)
-                    if (item.checked) {
-                        arcr.push(item.value);
+            var cr = $('[id^="Courses"]');
+            var arcr = [];
+
+            for (var item of cr) {
+                //console.log(item.checked)
+                if (item.checked) {
+                    arcr.push(item.value);
+                }
+            }
+
+            jQuery.map(Data.Courses['Entities'], function (v) {
+                for (var item of arcr) {
+                    if (item == v.ID) {
+                        Courses.push(v);
                     }
                 }
+            });
 
-                jQuery.map(Data.Courses['Entities'], function (v) {
-                    for (var item of arcr) {
-                        if (item == v.ID) {
-                            Courses.push(v);
-                        }
-                    }
-                });
+            var as = $('[id^="Assignments"]');
+            var aras = [];
 
-                var as = $('[id^="Assignments"]');
-                var aras = [];
+            for (var item of as) {
+                //console.log(item.checked)
+                if (item.checked) {
+                    aras.push(item.value);
+                }
+            }
 
-                for (var item of as) {
-                    //console.log(item.checked)
-                    if (item.checked) {
-                        aras.push(item.value);
+            jQuery.map(Data.Assignments['Entities'], function (v) {
+                for (var item of aras) {
+                    if (item == v.ID) {
+                        Assignments.push(v);
                     }
                 }
+            });
 
+            if (k === 2) {
+                DtValue.RemoveSelf(id);
+            }
+
+            Data.Students.Entities.push(new Data.Students.Constructor(ID, firstName, lastName, dateOfBirth, tuitionFees, Courses, Assignments));
+
+            Data.Assignments.RemoveStudents(ID);
+            Data.Courses.RemoveStudents(ID);
+
+            for (var item of Assignments) {
                 jQuery.map(Data.Assignments['Entities'], function (v) {
-                    for (var item of aras) {
-                        if (item == v.ID) {
-                            Assignments.push(v);
-                        }
+                    if (v.ID === item.ID) {
+                        jQuery.map(Data.Students['Entities'], function (v2) {
+                            if (v2.ID === ID) {
+                                v.Students.push(v2);
+                            }
+                        })
                     }
-                });
-
-                Data.Students.Entities.push(new Data.Students.Constructor(ID, firstName, lastName, dateOfBirth, tuitionFees, Courses, Assignments));
-
-                for (var item of Assignments) {
-                    jQuery.map(Data.Assignments['Entities'], function (v) {
-                        if (v.ID === item.ID) {
-                            jQuery.map(Data.Students['Entities'], function (v) {
-                                item.Students.push(v);
-                            })
-                        }
-                    })
-                }
-
-                for (var item of Courses) {
-                    jQuery.map(Data.Courses['Entities'], function (v) {
-                        if (v.ID === item.ID) {
-                            jQuery.map(Data.Students['Entities'], function (v) {
-                                item.Students.push(v);
-                            })
-                        }
-                    })
-                }
-
-                //console.log(Data.Courses);
-
+                })
             }
 
-            if (DtIndex === "Assignments") {
-                var ID;
+            for (var item of Courses) {
+                jQuery.map(Data.Courses['Entities'], function (v) {
+                    if (v.ID === item.ID) {
+                        jQuery.map(Data.Students['Entities'], function (v2) {
+                            if (v2.ID === ID) {
+                                v.Students.push(v2);
+                            }
+                        })
+                    }
+                })
+            }
+
+            //console.log(Data.Courses);
+
+        }
+
+        if (DtIndex === "Assignments") {
+            var ID;
+            var title;
+            var description;
+            var subDateTime;
+            var Courses = [];
+            var Students = [];
+
+            if (k === 1) {
                 var arID = [];
-                var title;
-                var description;
-                var subDateTime;
-                var Courses = [];
-                var Students = [];
                 jQuery.map(DtValue.Entities, function (v) {
                     arID.push(v.ID);
                 });
-
                 ID = Math.max.apply(Math, arID) + 1;
-                title = $('#title').val();
-                description = $('#description').val();
-                subDateTime = ('#subDateTime');
-                //console.log(Data.Students.Entities);
+            }
 
-                var cr = $('[id^="Courses"]');
-                var arcr = [];
+            if (k === 2) {
+                ID = id;
+            }
+            
+            title = $('#title').val();
+            description = $('#description').val();
+            subDateTime = ('#subDateTime');
+            //console.log(Data.Students.Entities);
 
-                for (var item of cr) {
-                    //console.log(item.checked)
-                    if (item.checked) {
-                        arcr.push(item.value);
+            var cr = $('[id^="Courses"]');
+            var arcr = [];
+
+            for (var item of cr) {
+                //console.log(item.checked)
+                if (item.checked) {
+                    arcr.push(item.value);
+                }
+            }
+
+            jQuery.map(Data.Courses['Entities'], function (v) {
+                for (var item of arcr) {
+                    if (item == v.ID) {
+                        Courses.push(v);
                     }
                 }
+            });
 
+            var st = $('[id^="Students"]');
+            var arst = [];
+
+            for (var item of st) {
+                //console.log(item.checked)
+                if (item.checked) {
+                    arst.push(item.value);
+                }
+            }
+
+            jQuery.map(Data.Students['Entities'], function (v) {
+                for (var item of arst) {
+                    if (item == v.ID) {
+                        Students.push(v);
+                    }
+                }
+            });
+
+            if (k === 2) {
+                DtValue.RemoveSelf(ID);
+            }
+
+            Data.Assignments.Entities.push(new Data.Assignments.Constructor(ID, title, description, subDateTime, Students, Courses));
+
+            Data.Courses.RemoveAssignments(ID);
+            Data.Students.RemoveAssignments(ID);
+
+            for (var item of Courses) {
                 jQuery.map(Data.Courses['Entities'], function (v) {
-                    for (var item of arcr) {
-                        if (item == v.ID) {
-                            Courses.push(v);
-                        }
+                    if (v.ID === item.ID) {
+                        jQuery.map(Data.Assignments['Entities'], function (v2) {
+                            if (v2.ID === ID) {
+                                v.Asignments.push(v2);
+                            }
+                        })
                     }
-                });
+                })
+            }
 
-                var st = $('[id^="Students"]');
-                var arst = [];
-
-                for (var item of st) {
-                    //console.log(item.checked)
-                    if (item.checked) {
-                        arst.push(item.value);
-                    }
-                }
-
+            for (var item of Students) {
                 jQuery.map(Data.Students['Entities'], function (v) {
-                    for (var item of arst) {
-                        if (item == v.ID) {
-                            Students.push(v);
-                        }
+                    if (v.ID === item.ID) {
+                        jQuery.map(Data.Assignments['Entities'], function (v2) {
+                            if (v2.ID === ID) {
+                                v.Asignments.push(v2);
+                            }
+                        })
                     }
-                });
-
-                Data.Assignments.Entities.push(new Data.Assignments.Constructor(ID, title, description, subDateTime, Students, Courses));
-
-                //console.log(Data.Courses);
-
-                for (var item of Courses) {
-                    jQuery.map(Data.Courses['Entities'], function (v) {
-                        if (v.ID === item.ID) {
-                            jQuery.map(Data.Assignments['Entities'], function (v) {
-                                item.Assignments.push(v);
-                            })
-                        }
-                    })
-                }
-
-                for (var item of Students) {
-                    jQuery.map(Data.Students['Entities'], function (v) {
-                        if (v.ID === item.ID) {
-                            jQuery.map(Data.Assignments['Entities'], function (v) {
-                                item.Assignments.push(v);
-                            })
-                        }
-                    })
-                }
-
+                })
             }
 
-            if (DtIndex === "Trainers") {
-                var ID;
+        }
+
+        if (DtIndex === "Trainers") {
+            var ID;
+            var firstName;
+            var lastName;
+            var subject;
+            var Courses = [];
+
+            if (k === 1) {
                 var arID = [];
-                var firstName;
-                var lastName;
-                var subject;
-                var Courses = [];
                 jQuery.map(DtValue.Entities, function (v) {
                     arID.push(v.ID);
                 });
-
                 ID = Math.max.apply(Math, arID) + 1;
-                firstName = $('#firstName').val();
-                lastName = $('#lastName').val();
-                subject = $('#subject').val();
-                //console.log(Data.Students.Entities);
-
-                var cr = $('[id^="Courses"]');
-                var arcr = [];
-
-                for (var item of cr) {
-                    //console.log(item.checked)
-                    if (item.checked) {
-                        arcr.push(item.value);
-                    }
-                }
-
-                jQuery.map(Data.Courses['Entities'], function (v) {
-                    for (var item of arcr) {
-                        if (item == v.ID) {
-                            Courses.push(v);
-                        }
-                    }
-                });
-
-                Data.Trainers.Entities.push(new Data.Trainers.Constructor(ID, firstName, lastName, subject, Courses));
-
-                //console.log(Data.Courses);
-
-                for (var item of Courses) {
-                    jQuery.map(Data.Courses['Entities'], function (v) {
-                        if (v.ID === item.ID) {
-                            jQuery.map(Data.Trainers['Entities'], function (v) {
-                                item.Trainers.push(v);
-                            })
-                        }
-                    })
-                }
-
             }
 
-            $('#myForms').width('0px');
-            $('#myForms').hide();
-            CreateTable(Data, DtValue, DtIndex);
+            if (k === 2) {
+                ID = id;
+            }
+            
+            firstName = $('#firstName').val();
+            lastName = $('#lastName').val();
+            subject = $('#subject').val();
+            //console.log(Data.Students.Entities);
+
+            var cr = $('[id^="Courses"]');
+            var arcr = [];
+
+            for (var item of cr) {
+                //console.log(item.checked)
+                if (item.checked) {
+                    arcr.push(item.value);
+                }
+            }
+
+            jQuery.map(Data.Courses['Entities'], function (v) {
+                for (var item of arcr) {
+                    if (item == v.ID) {
+                        Courses.push(v);
+                    }
+                }
+            });
+
+            if (k === 2) {
+                DtValue.RemoveSelf(ID);
+            }
+
+            Data.Trainers.Entities.push(new Data.Trainers.Constructor(ID, firstName, lastName, subject, Courses));
+
+            Data.Courses.RemoveTrainers(ID);
+
+            for (var item of Courses) {
+                jQuery.map(Data.Courses['Entities'], function (v) {
+                    if (v.ID === item.ID) {
+                        jQuery.map(Data.Trainers['Entities'], function (v2) {
+                            if (v2.ID === ID) {
+                                v.Trainers.push(v2);
+                            }
+                        })
+                    }
+                })
+            }
 
         }
-        if (k === 2) {
-           
-        }
+
+        CreateTable(Data, DtValue, DtIndex);
 
     });
 
