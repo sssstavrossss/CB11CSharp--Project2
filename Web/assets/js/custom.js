@@ -413,7 +413,7 @@ function CreateTable(Data, DtValue, DtIndex) {
     //DISPLAY - CREATING FORMS 
     //select table head icon 'plus'
     $('thead > tr > th > i').click(function () {
-        CreateRowForm(Data, DtValue, DtIndex);
+        CreateRowForm(Data, DtValue, DtIndex, 1);
         $('#myForms').width('400px');
         $('#myForms').show();
     });
@@ -423,7 +423,7 @@ function CreateTable(Data, DtValue, DtIndex) {
         var id = parseInt($(this).closest('tr').find('td:first').html());
         //console.log(id, DtIndex);
         //jQuery.map(DtValue.Entities[id], function (v, i) { console.log(v, i) });
-        CreateRowForm(Data, DtValue, DtIndex);
+        CreateRowForm(Data, DtValue, DtIndex, 2);
 
         var val = DtValue.Entities; // I need to isolate the specific entity
 
@@ -460,7 +460,8 @@ function CreateTable(Data, DtValue, DtIndex) {
 
 //CREATING FORMS
 //Add entity form
-function CreateRowForm(Data, DtValue, DtIndex) {
+function CreateRowForm(Data, DtValue, DtIndex, k) {
+    console.log(k);
 
     var div = $('#form-data');
     div.empty();
@@ -585,7 +586,11 @@ function CreateRowForm(Data, DtValue, DtIndex) {
 
     $('#form-data').addClass('pl-3 pl-4 mt-1');
 
-    form.append(input);
+
+
+    form.append([
+        input
+    ]);
 
     var btn = `<button type="submit" form="form" value="Submit" class="mt-5 ml-3" id="form-submit">Submit</button>`;
 
@@ -597,8 +602,40 @@ function CreateRowForm(Data, DtValue, DtIndex) {
     //Prevent Default
     $('#form').submit(function (event) {
         event.preventDefault();
-        console.log('hi');
-        console.log($('#title').val());
+        if (k === 1) {
+            //console.log(DtIndex);
+
+            if (DtIndex === "Courses") {
+                var ID;
+                var arID = [];
+                var title;
+                var stream;
+                var type;
+                var startDate;
+                var endDate;
+                var Students = [];
+                var Assignments = [];
+                var Trainers = [];
+                jQuery.map(DtValue.Entities, function (v) {
+                    arID.push(v.ID);
+                });
+
+                ID = Math.max.apply(Math, arID) + 1;
+                title = $('#title').val();
+                stream = $('#stream').val();
+                type = $('#type').val();
+                startDate = $('#startDate').val();
+                endDate = $('#endDate').val();
+                //console.log(ID, title, stream, type, startDate, endDate);
+
+
+
+            }
+
+        }
+        if (k === 2) {
+            //console.log(9);
+        }
         //if (DtIndex === "Courses") {
         //    for (var st of Data.Students.Entities) {
         //        //for (var ent of st.Entities) {
@@ -608,6 +645,7 @@ function CreateRowForm(Data, DtValue, DtIndex) {
         //   // console.log(Data.Students)
         //   // console.log($('[id^="Students"]').val());
         //}
+
     });
 
 }
