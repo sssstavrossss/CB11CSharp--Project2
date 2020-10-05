@@ -684,6 +684,36 @@ function CreateRowForm(Data, DtValue, DtIndex, k) {
 
                 Data.Courses.Entities.push(new Data.Courses.Constructor(ID, title, stream, type, startDate, endDate, Students, Assignments, Trainers));
 
+                for (var item of Students) {
+                    jQuery.map(Data.Students['Entities'], function (v) {
+                        if (v.ID === item.ID) {
+                            jQuery.map(Data.Courses['Entities'], function (v) {
+                                item.Courses.push(v);
+                            })
+                        }
+                    })
+                }
+
+                for (var item of Assignments) {
+                    jQuery.map(Data.Assignments['Entities'], function (v) {
+                        if (v.ID === item.ID) {
+                            jQuery.map(Data.Courses['Entities'], function (v) {
+                                item.Courses.push(v);
+                            })
+                        }
+                    })
+                }
+
+                for (var item of Trainers) {
+                    jQuery.map(Data.Trainers['Entities'], function (v) {
+                        if (v.ID === item.ID) {
+                            jQuery.map(Data.Courses['Entities'], function (v) {
+                                item.Courses.push(v);
+                            })
+                        }
+                    })
+                }
+
                 //console.log(Data.Courses);
 
             }
@@ -745,6 +775,26 @@ function CreateRowForm(Data, DtValue, DtIndex, k) {
                 });
 
                 Data.Students.Entities.push(new Data.Students.Constructor(ID, firstName, lastName, dateOfBirth, tuitionFees, Courses, Assignments));
+
+                for (var item of Assignments) {
+                    jQuery.map(Data.Assignments['Entities'], function (v) {
+                        if (v.ID === item.ID) {
+                            jQuery.map(Data.Students['Entities'], function (v) {
+                                item.Students.push(v);
+                            })
+                        }
+                    })
+                }
+
+                for (var item of Courses) {
+                    jQuery.map(Data.Courses['Entities'], function (v) {
+                        if (v.ID === item.ID) {
+                            jQuery.map(Data.Students['Entities'], function (v) {
+                                item.Students.push(v);
+                            })
+                        }
+                    })
+                }
 
                 //console.log(Data.Courses);
 
@@ -808,6 +858,26 @@ function CreateRowForm(Data, DtValue, DtIndex, k) {
 
                 //console.log(Data.Courses);
 
+                for (var item of Courses) {
+                    jQuery.map(Data.Courses['Entities'], function (v) {
+                        if (v.ID === item.ID) {
+                            jQuery.map(Data.Assignments['Entities'], function (v) {
+                                item.Assignments.push(v);
+                            })
+                        }
+                    })
+                }
+
+                for (var item of Students) {
+                    jQuery.map(Data.Students['Entities'], function (v) {
+                        if (v.ID === item.ID) {
+                            jQuery.map(Data.Assignments['Entities'], function (v) {
+                                item.Assignments.push(v);
+                            })
+                        }
+                    })
+                }
+
             }
 
             if (DtIndex === "Trainers") {
@@ -849,23 +919,26 @@ function CreateRowForm(Data, DtValue, DtIndex, k) {
 
                 //console.log(Data.Courses);
 
+                for (var item of Courses) {
+                    jQuery.map(Data.Courses['Entities'], function (v) {
+                        if (v.ID === item.ID) {
+                            jQuery.map(Data.Trainers['Entities'], function (v) {
+                                item.Trainers.push(v);
+                            })
+                        }
+                    })
+                }
+
             }
 
+            $('#myForms').width('0px');
+            $('#myForms').hide();
             CreateTable(Data, DtValue, DtIndex);
 
         }
         if (k === 2) {
-            //console.log(9);
+           
         }
-        //if (DtIndex === "Courses") {
-        //    for (var st of Data.Students.Entities) {
-        //        //for (var ent of st.Entities) {
-        //        console.log($(`#Students${st.ID}`).val());
-        //        //}
-        //    }
-        //   // console.log(Data.Students)
-        //   // console.log($('[id^="Students"]').val());
-        //}
 
     });
 
