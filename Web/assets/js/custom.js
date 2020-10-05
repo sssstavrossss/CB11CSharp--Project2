@@ -461,7 +461,7 @@ function CreateTable(Data, DtValue, DtIndex) {
 //CREATING FORMS
 //Add entity form
 function CreateRowForm(Data, DtValue, DtIndex, k) {
-    console.log(k);
+    //console.log(k);
 
     var div = $('#form-data');
     div.empty();
@@ -602,8 +602,8 @@ function CreateRowForm(Data, DtValue, DtIndex, k) {
     //Prevent Default
     $('#form').submit(function (event) {
         event.preventDefault();
+
         if (k === 1) {
-            //console.log(DtIndex);
 
             if (DtIndex === "Courses") {
                 var ID;
@@ -626,11 +626,232 @@ function CreateRowForm(Data, DtValue, DtIndex, k) {
                 type = $('#type').val();
                 startDate = $('#startDate').val();
                 endDate = $('#endDate').val();
-                //console.log(ID, title, stream, type, startDate, endDate);
+                //console.log(Data.Students.Entities);
 
+                var st = $('[id^="Students"]');
+                var arst = [];
 
+                for (var item of st) {
+                    //console.log(item.checked)
+                    if (item.checked) {
+                        arst.push(item.value);
+                    }
+                }
+
+                jQuery.map(Data.Students['Entities'], function (v) {
+                    for (var item of arst) {
+                        if (item == v.ID) {
+                            Students.push(v);
+                        }
+                    }
+                });
+
+                var as = $('[id^="Assignments"]');
+                var aras = [];
+
+                for (var item of as) {
+                    //console.log(item.checked)
+                    if (item.checked) {
+                        aras.push(item.value);
+                    }
+                }
+
+                jQuery.map(Data.Assignments['Entities'], function (v) {
+                    for (var item of aras) {
+                        if (item == v.ID) {
+                            Assignments.push(v);
+                        }
+                    }
+                });
+
+                var tr = $('[id^="Trainers"]');
+                var artr = [];
+
+                for (var item of tr) {
+                    //console.log(item.checked)
+                    if (item.checked) {
+                        artr.push(item.value);
+                    }
+                }
+
+                jQuery.map(Data.Trainers['Entities'], function (v) {
+                    for (var item of aras) {
+                        if (item == v.ID) {
+                            Trainers.push(v);
+                        }
+                    }
+                });
+
+                Data.Courses.Entities.push(new Data.Courses.Constructor(ID, title, stream, type, startDate, endDate, Students, Assignments, Trainers));
+
+                //console.log(Data.Courses);
 
             }
+
+            if (DtIndex === "Students") {
+                var ID;
+                var arID = [];
+                var firstName;
+                var lastName;
+                var dateOfBirth;
+                var tuitionFees;
+                var Courses = [];
+                var Assignments = [];
+                jQuery.map(DtValue.Entities, function (v) {
+                    arID.push(v.ID);
+                });
+
+                ID = Math.max.apply(Math, arID) + 1;
+                firstName = $('#firstName').val();
+                lastName = $('#lastName').val();
+                dateOfBirth = $('#dateOfBirth').val();
+                tuitionFees = $('#tuitionFees').val();
+                //console.log(Data.Students.Entities);
+
+                var cr = $('[id^="Courses"]');
+                var arcr = [];
+
+                for (var item of cr) {
+                    //console.log(item.checked)
+                    if (item.checked) {
+                        arcr.push(item.value);
+                    }
+                }
+
+                jQuery.map(Data.Courses['Entities'], function (v) {
+                    for (var item of arcr) {
+                        if (item == v.ID) {
+                            Courses.push(v);
+                        }
+                    }
+                });
+
+                var as = $('[id^="Assignments"]');
+                var aras = [];
+
+                for (var item of as) {
+                    //console.log(item.checked)
+                    if (item.checked) {
+                        aras.push(item.value);
+                    }
+                }
+
+                jQuery.map(Data.Assignments['Entities'], function (v) {
+                    for (var item of aras) {
+                        if (item == v.ID) {
+                            Assignments.push(v);
+                        }
+                    }
+                });
+
+                Data.Students.Entities.push(new Data.Students.Constructor(ID, firstName, lastName, dateOfBirth, tuitionFees, Courses, Assignments));
+
+                //console.log(Data.Courses);
+
+            }
+
+            if (DtIndex === "Assignments") {
+                var ID;
+                var arID = [];
+                var title;
+                var description;
+                var subDateTime;
+                var Courses = [];
+                var Students = [];
+                jQuery.map(DtValue.Entities, function (v) {
+                    arID.push(v.ID);
+                });
+
+                ID = Math.max.apply(Math, arID) + 1;
+                title = $('#title').val();
+                description = $('#description').val();
+                subDateTime = ('#subDateTime');
+                //console.log(Data.Students.Entities);
+
+                var cr = $('[id^="Courses"]');
+                var arcr = [];
+
+                for (var item of cr) {
+                    //console.log(item.checked)
+                    if (item.checked) {
+                        arcr.push(item.value);
+                    }
+                }
+
+                jQuery.map(Data.Courses['Entities'], function (v) {
+                    for (var item of arcr) {
+                        if (item == v.ID) {
+                            Courses.push(v);
+                        }
+                    }
+                });
+
+                var st = $('[id^="Students"]');
+                var arst = [];
+
+                for (var item of st) {
+                    //console.log(item.checked)
+                    if (item.checked) {
+                        arst.push(item.value);
+                    }
+                }
+
+                jQuery.map(Data.Students['Entities'], function (v) {
+                    for (var item of arst) {
+                        if (item == v.ID) {
+                            Students.push(v);
+                        }
+                    }
+                });
+
+                Data.Assignments.Entities.push(new Data.Assignments.Constructor(ID, title, description, subDateTime, Students, Courses));
+
+                //console.log(Data.Courses);
+
+            }
+
+            if (DtIndex === "Trainers") {
+                var ID;
+                var arID = [];
+                var firstName;
+                var lastName;
+                var subject;
+                var Courses = [];
+                jQuery.map(DtValue.Entities, function (v) {
+                    arID.push(v.ID);
+                });
+
+                ID = Math.max.apply(Math, arID) + 1;
+                firstName = $('#firstName').val();
+                lastName = $('#lastName').val();
+                subject = $('#subject').val();
+                //console.log(Data.Students.Entities);
+
+                var cr = $('[id^="Courses"]');
+                var arcr = [];
+
+                for (var item of cr) {
+                    //console.log(item.checked)
+                    if (item.checked) {
+                        arcr.push(item.value);
+                    }
+                }
+
+                jQuery.map(Data.Courses['Entities'], function (v) {
+                    for (var item of arcr) {
+                        if (item == v.ID) {
+                            Courses.push(v);
+                        }
+                    }
+                });
+
+                Data.Trainers.Entities.push(new Data.Trainers.Constructor(ID, firstName, lastName, subject, Courses));
+
+                //console.log(Data.Courses);
+
+            }
+
+            CreateTable(Data, DtValue, DtIndex);
 
         }
         if (k === 2) {
