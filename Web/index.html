@@ -60,7 +60,10 @@
                             <li>Datatables plugin is used which means</li>
                             <li>You can sort, search data, it also includes paging</li>
                             <li>You can add an entity by clicking "+" at the last cell of the header of the table</li>
-                            <li>You can edit a row by clicking "gear" button at the last cell of the body of the table</li>
+                            <li>
+                                You can edit a row by clicking "gear" button at the last cell of the body of the table<br />
+                                (js will pick the values from the row you picked to fill the form, which later you can edit and update)
+                            </li>
                             <li>You can delete a row by clicking "trash bin" button at the last cell of the body of the table</li>
                         </ul>
                     </div>
@@ -70,9 +73,23 @@
                             <li>Vanda plugin is used for moving background</li>
                             <li>Dark theme with glass effect inspired by me to save energy and relax eyes</li>
                             <li>"Instructions" (or homepage) looks poor but i had no time to think about it :D</li>
-                            <li>Body may seem to have bigger height than needed but Vanda plugin does not work properly when 
-                            <br /> body height is bigger than declared vanda minimun height (you need to minimize and maximize
-                            <br /> browser to see it properly)</li>
+                            <li>
+                                Body may seem to have bigger height than needed but Vanda plugin does not work properly when
+                                <br /> body height is bigger than declared vanda minimun height (you need to minimize and maximize
+                                <br /> browser to see it properly)
+                            </li>
+                            <li>Currently you cant update the data or add new data, but you can delete them</li>
+                        </ul>
+                    </div>
+                    <div><h5>Bugs</h5></div>
+                    <div>
+                        <ul>
+                            <li>Currently there is a bug, when you delete a row and try to create forms immediately <br />
+                                the js is trying to figure out how to build the form but it cant because it takes data from the last row picked
+                            </li>
+                            <li>I havent figured out, because of lack of time, how to put the date values from rows to forms when <br />
+                                user pickes a row to edit    
+                            </li>
                         </ul>
                     </div>
                 </div>

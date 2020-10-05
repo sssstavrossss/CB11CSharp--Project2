@@ -413,13 +413,18 @@ function CreateTable(Data, DtValue, DtIndex) {
     //DISPLAY - CREATING FORMS 
     //select table head icon 'plus'
     $('thead > tr > th > i').click(function () {
-        $('#myForms').width('400px');
         CreateRowForm(Data, DtValue);
+        $('#myForms').width('400px');
         $('#myForms').show();
     });
 
     //select table body icon first child 'gear'
     $('tbody > tr > td > i:even').click(function () {
+        var id = parseInt($(this).closest('tr').find('td:first').html());
+        //console.log(id, DtIndex);
+        //jQuery.map(DtValue.Entities[id], function (v, i) { console.log(v, i) });
+        CreateRowForm(Data, DtValue);
+        ManipulateRowForm(DtValue, id, DtIndex);
         $('#myForms').width('400px');
         $('#myForms').show();
     });
@@ -584,6 +589,70 @@ function CreateRowForm(Data, DtValue) {
         //console.log($('#form'));
     });
 
+}
+
+function ManipulateRowForm(DtValue, id, DtIndex) {
+    if ($('#title')) {
+        //console.log(DtValue.Entities[id - 1].title);
+        $('#title').val(DtValue.Entities[id - 1].title);
+    }
+    if ($('#description')) {
+        $('#description').val(DtValue.Entities[id - 1].description)
+    }
+    if ($('#stream')) {
+        $('#stream').val(DtValue.Entities[id - 1].stream)
+    }
+    if ($('type')) {
+        $('#type').val(DtValue.Entities[id - 1].type)
+    }
+    if ($('#firstName')) {
+        $('#firstName').val(DtValue.Entities[id - 1].firstName)
+    }
+    if ($('#lastName')) {
+        $('#lastName').val(DtValue.Entities[id - 1].lastName)
+    }
+    if ($('#tuitionFees')) {
+        $('#tuitionFees').val(DtValue.Entities[id - 1].tuitionFees)
+    }
+    if ($('#dateOfBirth')) {
+        $('#dateOfBirth').val(DtValue.Entities[id - 1].dateOfBirth)
+    }
+    if ($('#subject')) {
+        $('#subject').val(DtValue.Entities[id - 1].subject)
+    }
+    //console.log(DtValue.Entities[id - 1]);
+    if (DtIndex === "Courses") {
+        for (var item of DtValue.Entities[id - 1].Students) {
+            $(`#Students${item.ID - 1}`).prop('checked', true);
+        }
+        for (var item of DtValue.Entities[id - 1].Assignments) {
+            $(`#Assignments${item.ID - 1}`).prop('checked', true);
+        }
+        for (var item of DtValue.Entities[id - 1].Trainers) {
+            $(`#Trainers${item.ID - 1}`).prop('checked', true);
+        }
+    }
+    if (DtIndex === "Students") {
+        for (var item of DtValue.Entities[id - 1].Courses) {
+            $(`#Courses${item.ID - 1}`).prop('checked', true);
+        }
+        for (var item of DtValue.Entities[id - 1].Assignments) {
+            $(`#Assignments${item.ID - 1}`).prop('checked', true);
+        }
+    }
+    if (DtIndex === "Trainers") {
+        for (var item of DtValue.Entities[id - 1].Courses) {
+            $(`#Courses${item.ID - 1}`).prop('checked', true);
+        }
+    }
+    if (DtIndex === "Assignments") {
+        for (var item of DtValue.Entities[id - 1].Students) {
+            $(`#Students${item.ID - 1}`).prop('checked', true);
+        }
+        for (var item of DtValue.Entities[id - 1].Courses) {
+            $(`#Courses${item.ID - 1}`).prop('checked', true);
+        }
+    }
 }
 
 //Dynamic Data Table Function
