@@ -413,7 +413,7 @@ function CreateTable(Data, DtValue, DtIndex) {
     //DISPLAY - CREATING FORMS 
     //select table head icon 'plus'
     $('thead > tr > th > i').click(function () {
-        CreateRowForm(Data, DtValue);
+        CreateRowForm(Data, DtValue, DtIndex);
         $('#myForms').width('400px');
         $('#myForms').show();
     });
@@ -423,8 +423,19 @@ function CreateTable(Data, DtValue, DtIndex) {
         var id = parseInt($(this).closest('tr').find('td:first').html());
         //console.log(id, DtIndex);
         //jQuery.map(DtValue.Entities[id], function (v, i) { console.log(v, i) });
-        CreateRowForm(Data, DtValue);
-        ManipulateRowForm(DtValue, id, DtIndex);
+        CreateRowForm(Data, DtValue, DtIndex);
+
+        var val = DtValue.Entities; // I need to isolate the specific entity
+
+        Remove(id);
+
+        function Remove(id) {
+            val = $.grep(val, function (e) {
+                return e.ID == id;
+            });
+        }
+
+        ManipulateRowForm(val, DtIndex);
         $('#myForms').width('400px');
         $('#myForms').show();
     });
@@ -449,7 +460,7 @@ function CreateTable(Data, DtValue, DtIndex) {
 
 //CREATING FORMS
 //Add entity form
-function CreateRowForm(Data, DtValue) {
+function CreateRowForm(Data, DtValue, DtIndex) {
 
     var div = $('#form-data');
     div.empty();
@@ -537,8 +548,8 @@ function CreateRowForm(Data, DtValue) {
     function PickStudents(Entities) {
         var input = "";
         jQuery.map(Entities, function (v, i) {
-            input += `<label style="width: 90%;" for="Students${i}">${v.firstName + " " + v.lastName}</label>
-                     <input type="checkbox" id="Students${i}" name="Students${i}" value="${i}" /></br>`;
+            input += `<label style="width: 90%;" for="Students${v.ID}">${v.firstName + " " + v.lastName}</label>
+                     <input type="checkbox" id="Students${v.ID}" name="Students${v.ID}" value="${v.ID}" /></br>`;
         });
         return input;
     }
@@ -546,8 +557,8 @@ function CreateRowForm(Data, DtValue) {
     function PickTrainers(Entities) {
         var input = "";
         jQuery.map(Entities, function (v, i) {
-            input += `<label style="width: 90%;" for="Trainers${i}">${v.firstName + " " + v.lastName}</label>
-                     <input type="checkbox" id="Trainers${i}" name="Trainers${i}" value="${i}" /></br>`;
+            input += `<label style="width: 90%;" for="Trainers${v.ID}">${v.firstName + " " + v.lastName}</label>
+                     <input type="checkbox" id="Trainers${v.ID}" name="Trainers${v.ID}" value="${v.ID}" /></br>`;
         });
         return input;
     }
@@ -555,8 +566,8 @@ function CreateRowForm(Data, DtValue) {
     function PickCourses(Entities) {
         var input = "";
         jQuery.map(Entities, function (v, i) {
-            input += `<label style="width: 90%;" for="Courses${i}">${v.title}</label>
-                     <input type="checkbox" id="Courses${i}" name="Courses${i}" value="${i}" /></br>`;
+            input += `<label style="width: 90%;" for="Courses${v.ID}">${v.title}</label>
+                     <input type="checkbox" id="Courses${v.ID}" name="Courses${v.ID}" value="${v.ID}" /></br>`;
         });
         return input;
     }
@@ -564,8 +575,8 @@ function CreateRowForm(Data, DtValue) {
     function PickAssignments(Entities) {
         var input = "";
         jQuery.map(Entities, function (v, i) {
-            input += `<label style="width: 90%;" for="Assignments${i}">${v.title}</label>
-                     <input type="checkbox" id="Assignments${i}" name="Assignments${i}" value="${i}" /></br>`;
+            input += `<label style="width: 90%;" for="Assignments${v.ID}">${v.title}</label>
+                     <input type="checkbox" id="Assignments${v.ID}" name="Assignments${v.ID}" value="${v.ID}" /></br>`;
         });
         return input;
     }
@@ -585,72 +596,83 @@ function CreateRowForm(Data, DtValue) {
 
     //Prevent Default
     $('#form').submit(function (event) {
-        //console.log('hi');
-        //console.log($('#form'));
+        event.preventDefault();
+        console.log('hi');
+        console.log($('#title').val());
+        //if (DtIndex === "Courses") {
+        //    for (var st of Data.Students.Entities) {
+        //        //for (var ent of st.Entities) {
+        //        console.log($(`#Students${st.ID}`).val());
+        //        //}
+        //    }
+        //   // console.log(Data.Students)
+        //   // console.log($('[id^="Students"]').val());
+        //}
     });
 
 }
 
-function ManipulateRowForm(DtValue, id, DtIndex) {
+function ManipulateRowForm(val, DtIndex) {
+
     if ($('#title')) {
         //console.log(DtValue.Entities[id - 1].title);
-        $('#title').val(DtValue.Entities[id - 1].title);
+        $('#title').val(val[0].title);
     }
     if ($('#description')) {
-        $('#description').val(DtValue.Entities[id - 1].description)
+        $('#description').val(val[0].description)
     }
     if ($('#stream')) {
-        $('#stream').val(DtValue.Entities[id - 1].stream)
+        $('#stream').val(val[0].stream)
     }
     if ($('type')) {
-        $('#type').val(DtValue.Entities[id - 1].type)
+        $('#type').val(val[0].type)
     }
     if ($('#firstName')) {
-        $('#firstName').val(DtValue.Entities[id - 1].firstName)
+        $('#firstName').val(val[0].firstName)
     }
     if ($('#lastName')) {
-        $('#lastName').val(DtValue.Entities[id - 1].lastName)
+        $('#lastName').val(val[0].lastName)
     }
     if ($('#tuitionFees')) {
-        $('#tuitionFees').val(DtValue.Entities[id - 1].tuitionFees)
+        $('#tuitionFees').val(val[0].tuitionFees)
     }
     if ($('#dateOfBirth')) {
-        $('#dateOfBirth').val(DtValue.Entities[id - 1].dateOfBirth)
+        $('#dateOfBirth').val(val[0].dateOfBirth)
     }
     if ($('#subject')) {
-        $('#subject').val(DtValue.Entities[id - 1].subject)
+        $('#subject').val(val[0].subject)
     }
     //console.log(DtValue.Entities[id - 1]);
     if (DtIndex === "Courses") {
-        for (var item of DtValue.Entities[id - 1].Students) {
-            $(`#Students${item.ID - 1}`).prop('checked', true);
+        for (var item of val[0].Students) {
+            $(`#Students${item.ID}`).prop('checked', true);
         }
-        for (var item of DtValue.Entities[id - 1].Assignments) {
-            $(`#Assignments${item.ID - 1}`).prop('checked', true);
+        for (var item of val[0].Assignments) {
+            $(`#Assignments${item.ID}`).prop('checked', true);
         }
-        for (var item of DtValue.Entities[id - 1].Trainers) {
-            $(`#Trainers${item.ID - 1}`).prop('checked', true);
+        for (var item of val[0].Trainers) {
+            $(`#Trainers${item.ID}`).prop('checked', true);
         }
     }
     if (DtIndex === "Students") {
-        for (var item of DtValue.Entities[id - 1].Courses) {
-            $(`#Courses${item.ID - 1}`).prop('checked', true);
+        for (var item of val[0].Courses) {
+            $(`#Courses${item.ID}`).prop('checked', true);
         }
-        for (var item of DtValue.Entities[id - 1].Assignments) {
-            $(`#Assignments${item.ID - 1}`).prop('checked', true);
+        for (var item of val[0].Assignments) {
+            $(`#Assignments${item.ID}`).prop('checked', true);
         }
     }
     if (DtIndex === "Trainers") {
-        for (var item of DtValue.Entities[id - 1].Courses) {
-            $(`#Courses${item.ID - 1}`).prop('checked', true);
+        for (var item of val[0].Courses) {
+            $(`#Courses${item.ID}`).prop('checked', true);
         }
     }
     if (DtIndex === "Assignments") {
-        for (var item of DtValue.Entities[id - 1].Students) {
-            $(`#Students${item.ID - 1}`).prop('checked', true);
+        for (var item of val[0].Students) {
+            $(`#Students${item.ID}`).prop('checked', true);
         }
-        for (var item of DtValue.Entities[id - 1].Courses) {
-            $(`#Courses${item.ID - 1}`).prop('checked', true);
+        for (var item of val[0].Courses) {
+            $(`#Courses${item.ID}`).prop('checked', true);
         }
     }
 }
